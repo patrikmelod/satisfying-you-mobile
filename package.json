@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-native-paper": "^5.10.4",
+    "react-native-safe-area-context": "^4.7.2"
+  }
+}
