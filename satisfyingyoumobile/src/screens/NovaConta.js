@@ -1,7 +1,6 @@
 import { View, StyleSheet, Text } from 'react-native'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const theme = {
   ...DefaultTheme,
