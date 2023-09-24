@@ -15,11 +15,17 @@ const theme = {
 const RecuperarSenha = (props) => {
 
     const [txtEmail, setEmail] = useState('')
+    const [checkEmail, setCheck] = useState(false)
 
     const recuperar = () => {
-        props.navigation.goBack()
+        if (txtEmail == "") {
+            setCheck(true)
+        } else {
+            props.navigation.goBack()
+            setCheck(false)
+        }
     }
-    
+
     return (
         <PaperProvider>
             <View style={estilos.view}>
@@ -30,9 +36,11 @@ const RecuperarSenha = (props) => {
                         onChangeText={setEmail}
                         placeholder='Digite seu email'
                     />
-                    <Text style={estilos.texto}>
-                        E-mail parece ser inválido
-                    </Text>
+                    {checkEmail && (
+                        <Text style={estilos.texto}>
+                            E-mail parece ser inválido
+                        </Text>
+                    )}
                 </View>
 
                 <View style={estilos.bottom}>
