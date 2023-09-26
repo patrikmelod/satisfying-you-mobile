@@ -16,6 +16,7 @@ const Login = (props) => {
 
     const [txtEmail, setEmail] = useState('')
     const [txtSenha, setSenha] = useState('')
+    const [emailPassword, setCheck] = useState(false)
 
     const goToNovaConta = () => {
         props.navigation.navigate("Nova Conta")
@@ -23,6 +24,14 @@ const Login = (props) => {
 
     const goToRecuperarSenha = () => {
         props.navigation.navigate("Recuperação de Senha")
+    }
+
+    const checkEmailPassword = () => {
+        if (txtEmail == "" || txtSenha == "") {
+            setCheck(true)
+        } else {
+            setCheck(false)
+        }
     }
 
     return (
@@ -49,10 +58,12 @@ const Login = (props) => {
                 </View>
 
                 <View style={estilos.middleBottom}>
-                    <Text style={estilos.textoErro}>
-                        Email e/ou senha inválidos
-                    </Text>
-                    <Button mode="contained" buttonColor='#228B22' onPress={() => console.log('Pressed')}>
+                    {emailPassword && (
+                        <Text style={estilos.textoErro}>
+                            Email e/ou senha inválidos
+                        </Text>
+                    )}
+                    <Button mode="contained" buttonColor='#228B22' onPress={checkEmailPassword}>
                         Entrar
                     </Button>
                 </View>

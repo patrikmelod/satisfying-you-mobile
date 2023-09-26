@@ -1,7 +1,6 @@
 import { View, StyleSheet, Text } from 'react-native'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
-import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const theme = {
   ...DefaultTheme,
@@ -17,9 +16,15 @@ const NovaConta = (props) => {
   const [txtEmail, setEmail] = useState('')
   const [txtSenha, setSenha] = useState('')
   const [txtConfirmaSenha, setConfirmaSenha] = useState('')
+  const [checkText, setCheckText] = useState(false)
 
   const cadastrar = () => {
-    props.navigation.goBack()
+    if (txtConfirmaSenha != txtSenha || txtConfirmaSenha == "") {
+      setCheckText(true)
+    } else {
+      setCheckText(false)
+      props.navigation.goBack()
+    }
   }
 
   return (
@@ -44,12 +49,14 @@ const NovaConta = (props) => {
             onChangeText={setConfirmaSenha}
             placeholder='Confirme sua senha'
           />
-          </View>
+        </View>
 
-          <View style={estilos.middle}>
-          <Text style={estilos.texto}>
-            O campo repetir senha difere da senha
-          </Text>
+        <View style={estilos.middle}>
+          {checkText && (
+            <Text style={estilos.texto}>
+              O campo repetir senha difere da senha
+            </Text>
+          )}
         </View>
 
         <View style={estilos.bottom}>
