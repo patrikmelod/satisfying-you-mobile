@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {View, StyleSheet,TextInput, Text} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   PaperProvider,
   MD3LightTheme as DefaultTheme,
@@ -28,30 +29,30 @@ const Home = props => {
       <View style={estilos.view}>
 
 
-        <View style={estilos.searchBar}>
+        <TouchableOpacity style={estilos.searchBar}>
           <Icon name="search" size={36} />
           <TextInput style={estilos.texto} placeholder="Insira o termo de busca..." />
-        </View>
+        </TouchableOpacity>
 
         <View style={estilos.main}>
-          <View style={estilos.mainfilha}>
+          <TouchableOpacity style={estilos.mainfilha}>
             <Icon name="devices" size={60} color="brown"/>
             <Text style={estilos.titulo}>SECOMP 2023</Text>
             <Text style={estilos.texto}>10/10/2023</Text>
-          </View>
-          <View style={estilos.mainfilha}>
+          </TouchableOpacity>
+          <TouchableOpacity style={estilos.mainfilha}>
             <Icon name="people" size={60} color="black"/>
             <Text style={estilos.titulo}>UBUNTU 2022</Text>
             <Text style={estilos.texto}>05/06/2022</Text>
-          </View>
-          <View style={estilos.mainfilha}>
+          </TouchableOpacity>
+          <TouchableOpacity style={estilos.mainfilha}>
             <Icon name="woman" size={60} color="red"/>
             <Text style={estilos.titulo}>MENINAS CPU</Text>
             <Text style={estilos.texto}>01/04/2022</Text>
-          </View>
-          <View style={estilos.mainfilha}>
+          </TouchableOpacity>
+          <TouchableOpacity style={estilos.mainfilha}>
             <Text>SECOMP 2023</Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
 

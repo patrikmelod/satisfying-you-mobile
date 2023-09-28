@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {View, StyleSheet,TextInput, Text} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import {
   PaperProvider,
   MD3LightTheme as DefaultTheme,
@@ -25,18 +26,19 @@ return (
     <View style={estilos.view}>
 
       <View style={estilos.main}>
-        <View style={estilos.mainfilha}>
+
+        <TouchableOpacity style={estilos.mainfilha}>
           <Icon name="file-document-edit" size={60} color="white"/>
           <Text style={estilos.texto}>Modificar</Text>
-        </View>
-        <View style={estilos.mainfilha}>
+        </TouchableOpacity>
+        <TouchableOpacity style={estilos.mainfilha}>
           <Icon name="checkbox-multiple-outline" size={60} color="white"/>
           <Text style={estilos.texto}>Coletar dados</Text>
-        </View>
-        <View style={estilos.mainfilha}>
+        </TouchableOpacity>
+        <TouchableOpacity style={estilos.mainfilha}>
           <Icon name="chart-donut" size={60} color="white"/>
           <Text style={estilos.texto}>Relatório</Text>
-        </View>
+        </TouchableOpacity>
 
       </View>
 
