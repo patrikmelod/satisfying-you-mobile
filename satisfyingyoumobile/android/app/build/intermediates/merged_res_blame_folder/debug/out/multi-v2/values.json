@@ -1,27 +1,8 @@
 {
     "logs": [
         {
-            "outputFile": "com.satisfyingyoumobile.app-mergeDebugResources-3:/values/values.xml",
+            "outputFile": "com.satisfyingyoumobile.app-mergeDebugResources-29:/values/values.xml",
             "map": [
-                {
-                    "source": "C:\\Desenvolvimento\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\src\\main\\res\\values\\styles.xml",
-                    "from": {
-                        "startLines": "3",
-                        "startColumns": "4",
-                        "startOffsets": "54",
-                        "endLines": "6",
-                        "endColumns": "12",
-                        "endOffsets": "267"
-                    },
-                    "to": {
-                        "startLines": "824",
-                        "startColumns": "4",
-                        "startOffsets": "59859",
-                        "endLines": "827",
-                        "endColumns": "12",
-                        "endOffsets": "60037"
-                    }
-                },
                 {
                     "source": "C:\\Users\\patri\\.gradle\\caches\\transforms-3\\6fe00d6361b0f0c55549aec89a7f6742\\transformed\\jetified-react-android-0.72.4-debug\\res\\values\\values.xml",
                     "from": {
@@ -77,23 +58,6 @@
                         "endLines": "7109",
                         "endColumns": "24",
                         "endOffsets": "385718"
-                    }
-                },
-                {
-                    "source": "C:\\Desenvolvimento\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\generated\\res\\resValues\\debug\\values\\gradleResValues.xml",
-                    "from": {
-                        "startLines": "6,8",
-                        "startColumns": "4,4",
-                        "startOffsets": "159,265",
-                        "endColumns": "63,68",
-                        "endOffsets": "218,329"
-                    },
-                    "to": {
-                        "startLines": "657,658",
-                        "startColumns": "4,4",
-                        "startOffsets": "41723,41787",
-                        "endColumns": "63,68",
-                        "endOffsets": "41782,41851"
                     }
                 },
                 {
@@ -264,6 +228,25 @@
                     }
                 },
                 {
+                    "source": "C:\\novo-dev\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\src\\main\\res\\values\\styles.xml",
+                    "from": {
+                        "startLines": "3",
+                        "startColumns": "4",
+                        "startOffsets": "57",
+                        "endLines": "6",
+                        "endColumns": "12",
+                        "endOffsets": "273"
+                    },
+                    "to": {
+                        "startLines": "824",
+                        "startColumns": "4",
+                        "startOffsets": "59859",
+                        "endLines": "827",
+                        "endColumns": "12",
+                        "endOffsets": "60037"
+                    }
+                },
+                {
                     "source": "C:\\Users\\patri\\.gradle\\caches\\transforms-3\\cd3884f773085f1dee1d35041010e253\\transformed\\jetified-startup-runtime-1.0.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2",
@@ -281,6 +264,23 @@
                     }
                 },
                 {
+                    "source": "C:\\novo-dev\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\src\\main\\res\\values\\strings.xml",
+                    "from": {
+                        "startLines": "1",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endColumns": "56",
+                        "endOffsets": "69"
+                    },
+                    "to": {
+                        "startLines": "694",
+                        "startColumns": "4",
+                        "startOffsets": "44325",
+                        "endColumns": "56",
+                        "endOffsets": "44377"
+                    }
+                },
+                {
                     "source": "C:\\Users\\patri\\.gradle\\caches\\transforms-3\\bc4630f7968b1f3eb8f0d04812c2ae29\\transformed\\transition-1.2.0\\res\\values\\values.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11",
@@ -295,6 +295,23 @@
                         "startOffsets": "37875,37915,38349,38575,38630,39878,39932,39984,40033,40094",
                         "endColumns": "39,46,42,54,46,53,51,48,60,49",
                         "endOffsets": "37910,37957,38387,38625,38672,39927,39979,40028,40089,40139"
+                    }
+                },
+                {
+                    "source": "C:\\novo-dev\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\generated\\res\\resValues\\debug\\values\\gradleResValues.xml",
+                    "from": {
+                        "startLines": "6,8",
+                        "startColumns": "4,4",
+                        "startOffsets": "159,265",
+                        "endColumns": "63,68",
+                        "endOffsets": "218,329"
+                    },
+                    "to": {
+                        "startLines": "657,658",
+                        "startColumns": "4,4",
+                        "startOffsets": "41723,41787",
+                        "endColumns": "63,68",
+                        "endOffsets": "41782,41851"
                     }
                 },
                 {
@@ -348,23 +365,6 @@
                         "startOffsets": "40369",
                         "endColumns": "53",
                         "endOffsets": "40418"
-                    }
-                },
-                {
-                    "source": "C:\\Desenvolvimento\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\src\\main\\res\\values\\strings.xml",
-                    "from": {
-                        "startLines": "1",
-                        "startColumns": "4",
-                        "startOffsets": "16",
-                        "endColumns": "56",
-                        "endOffsets": "68"
-                    },
-                    "to": {
-                        "startLines": "694",
-                        "startColumns": "4",
-                        "startOffsets": "44325",
-                        "endColumns": "56",
-                        "endOffsets": "44377"
                     }
                 },
                 {

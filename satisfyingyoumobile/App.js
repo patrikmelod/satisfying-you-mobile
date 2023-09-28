@@ -3,6 +3,8 @@ import { createStackNavigator } from "@react-navigation/stack"
 import Login from "./src/screens/Login"
 import NovaConta from "./src/screens/NovaConta"
 import RecuperarSenha from "./src/screens/RecuperarSenha"
+import AcoesPesquisa from "./src/screens/AcoesPesquisa"
+import Home from "./src/screens/Home"
 
 const Stack = createStackNavigator()
 
@@ -13,6 +15,8 @@ const App = () => {
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="Nova Conta" component={NovaConta} />
         <Stack.Screen name="Recuperação de Senha" component={RecuperarSenha} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Ações Pesquisa" component={AcoesPesquisa} />
       </Stack.Navigator>
     </NavigationContainer>
   )
