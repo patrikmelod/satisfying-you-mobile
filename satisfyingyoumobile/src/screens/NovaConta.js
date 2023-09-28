@@ -28,7 +28,7 @@ const NovaConta = (props) => {
   }
 
   return (
-    <PaperProvider>
+    <PaperProvider theme={theme}>
       <View style={estilos.view}>
         <View style={estilos.top}>
           <TextInput

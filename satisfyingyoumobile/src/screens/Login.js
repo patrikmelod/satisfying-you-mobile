@@ -36,7 +36,7 @@ const Login = (props) => {
     }
 
     return (
-        <PaperProvider>
+        <PaperProvider theme={theme}>
             <View style={estilos.view}>
                 <View style={estilos.top}>
                     <Text style={estilos.texto}>Satisfying.you</Text>
