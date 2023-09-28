@@ -12,7 +12,7 @@ const theme = {
     }
 }
 
-const Login = (props) => {
+const   Login = (props) => {
 
     const [txtEmail, setEmail] = useState('')
     const [txtSenha, setSenha] = useState('')
@@ -31,6 +31,7 @@ const Login = (props) => {
             setCheck(true)
         } else {
             setCheck(false)
+            props.navigation.navigate("Home")
         }
     }
 
@@ -54,6 +55,7 @@ const Login = (props) => {
                         value={txtSenha}
                         onChangeText={setSenha}
                         placeholder='Digite sua senha'
+                        secureTextEntry={true}
                     />
                 </View>
 

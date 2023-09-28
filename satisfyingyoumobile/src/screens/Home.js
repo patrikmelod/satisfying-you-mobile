@@ -19,7 +19,7 @@ const theme = {
 const Home = props => {
 
   const goToPesquisa = () => {
-    props.navigation.navigate('NovaPesquisa');
+    props.navigation.navigate('Nova Pesquisa');
   };
 
 
