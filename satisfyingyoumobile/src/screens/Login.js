@@ -19,7 +19,7 @@ const Login = (props) => {
     const [emailPassword, setCheck] = useState(false)
 
     const goToNovaConta = () => {
-        props.navigation.navigate("Nova Pesquisa")
+        props.navigation.navigate("Nova Conta")
     }
 
     const goToRecuperarSenha = () => {
