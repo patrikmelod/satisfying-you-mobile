@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import {View, StyleSheet,TextInput, Text} from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native';
 import {
   PaperProvider,
   MD3LightTheme as DefaultTheme,
   Button,
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import Card from '../components/Card'
 
 const theme = {
   ...DefaultTheme,
@@ -39,24 +40,9 @@ const Home = props => {
         </TouchableOpacity>
 
         <View style={estilos.main}>
-          <TouchableOpacity style={estilos.mainfilha} onPress={goToAcoesPesquisa}>
-            <Icon name="devices" size={60} color="brown"/>
-            <Text style={estilos.titulo}>SECOMP 2023</Text>
-            <Text style={estilos.texto}>10/10/2023</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={estilos.mainfilha} onPress={goToAcoesPesquisa}>
-            <Icon name="people" size={60} color="black"/>
-            <Text style={estilos.titulo}>UBUNTU 2022</Text>
-            <Text style={estilos.texto}>05/06/2022</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={estilos.mainfilha} onPress={goToAcoesPesquisa}>
-            <Icon name="woman" size={60} color="red"/>
-            <Text style={estilos.titulo}>MENINAS CPU</Text>
-            <Text style={estilos.texto}>01/04/2022</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={estilos.mainfilha}>
-            <Text>SECOMP 2023</Text>
-          </TouchableOpacity>
+          <Card onPress={goToAcoesPesquisa} iconName={'devices'} iconColor={'brown'} title={'SECOMP 2023'} date={'10/10/2023'}/>
+          <Card onPress={goToAcoesPesquisa} iconName={'people'} iconColor={'black'} title={'UBUNTU 2022'} date={'05/06/2022'}/>
+          <Card onPress={goToAcoesPesquisa} iconName={'woman'} iconColor={'red'} title={'MENINAS CPU'} date={'01/04/2022'}/>
         </View>
 
 
