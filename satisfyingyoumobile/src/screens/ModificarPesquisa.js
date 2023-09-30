@@ -13,15 +13,14 @@ const theme = {
   }
 }
 
-const ModificarPesquisa = (props) => {
+  const ModificarPesquisa = (props) => {
 
   const [txtNome, setNome] = useState('')
   const [data, setData] = useState('')
   const [img, setImg] = useState('')
   const [checkNome, setCheckNome] = useState(props.checkNome)
   const [checkData, setCheckData] = useState(props.checkData)
-  const [popup, setPopUp] = useState(false)
-
+  const [popupVisible, setPopupVisible] = useState(false);
 
 
   const cadastrar = (prop) => {
@@ -36,20 +35,28 @@ const ModificarPesquisa = (props) => {
     setCheckData(false)
     }
   }
-}
+  }
 
-const gotoApagar = () => {
- setPopUp(!popup)
-}
+  // const gotoApagar = () => {
+  //   setPopUp(!popup)
+  // }
 
-useEffect(() => {
+  useEffect(() => {
  
   setNome('Carnaval 2024');
   setData('22/08/2023');
   setImg(<Icon name="mood" size={60} color='#FFFFFF' />)
-  
+  }, [] ); 
 
-}, [] ); 
+
+  const handleConfirm = () => {
+    // AQUI ADICIONAR DEPOIS O QUE FAZER SE CONFIRMAR (NO CASO SERIA PARA REMOVER O CARD)
+    setPopupVisible(false);
+  };
+
+  const handleClose = () => {
+    setPopupVisible(false);
+  };
 
   return (
     <PaperProvider>
@@ -94,13 +101,15 @@ useEffect(() => {
             SALVAR
           </Button>
 
-          <TouchableOpacity style={estilos.trash} onPress={gotoApagar}>
+          <TouchableOpacity style={estilos.trash} onPress={() => setPopupVisible(true)}>
             <Icon name="delete" size={27} color='#FFFFFF'  />
             <Text  style={estilos.trashText}>Apagar</Text>
           </TouchableOpacity >
           
         </View>
-          {popup && <PopUp  style={estilos.modalPopUp}/>    }
+          <PopUp visible={popupVisible}
+          onConfirm={handleConfirm}
+          onClose={handleClose}></PopUp>
       </View>
       
     
