@@ -63,33 +63,6 @@ const estilos = StyleSheet.create({
         color: '#FFFFFF',
         fontFamily: 'AveriaLibre-Bold',
         marginTop: 5
-    },
-    top: {
-        marginTop: 0,
-        paddingHorizontal: 0,
-        flex: 0.00,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    middle: {
-        marginTop: 0,
-        paddingHorizontal: 0,
-        flex: 0.0,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    bottom: {
-        paddingVertical: 0,
-        gap: 0,
-        flex: 0.0,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    botao: {
-        borderRadius: 0,
     }
 })
 

@@ -3,6 +3,7 @@ import Home from "./Home";
 import Login from "./Login";
 import CustomDrawer from "../components/CustomDrawer";
 import { View, StyleSheet, Image, Text } from 'react-native'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const DrawerNavigator = createDrawerNavigator()
 
@@ -16,7 +17,15 @@ const Drawer = (props) => {
             drawerInactiveTintColor: "#FFFFFF"
         }}
         drawerContent={(props) => <CustomDrawer {...props} />}>
-            <DrawerNavigator.Screen name="Pesquisas" component={Home} />
+            <DrawerNavigator.Screen 
+            name="Pesquisas" 
+            component={Home} 
+            options={{
+                drawerLabelStyle: {
+                    fontFamily: 'AveriaLibre-Light', 
+                    fontSize: 20},
+                drawerIcon: config => <Icon name="inventory" size={25} color='#FFFFFF' />
+                }} />
         </DrawerNavigator.Navigator>
     )
 }
