@@ -10,6 +10,7 @@ import Coleta from "./src/screens/Coleta"
 import ModificarPesquisa from "./src/screens/ModificarPesquisa"
 import NovaPesquisa from "./src/screens/NovaPesquisa"
 import Relatório from "./src/screens/Relatorio"
+import Drawer from "./src/screens/Drawer"
 
 
 const Stack = createStackNavigator()
@@ -22,6 +23,7 @@ const App = () => {
         <Stack.Screen name="Nova Conta" component={NovaConta} />
         <Stack.Screen name="Recuperação de Senha" component={RecuperarSenha} />
         <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Drawer" component={Drawer} options={{ headerShown: false }}/>
         <Stack.Screen name="Ações Pesquisa" component={AcoesPesquisa} />
         <Stack.Screen name="Nova Pesquisa" component={NovaPesquisa} />
         <Stack.Screen name="Modificar Pesquisa" component={ModificarPesquisa} />

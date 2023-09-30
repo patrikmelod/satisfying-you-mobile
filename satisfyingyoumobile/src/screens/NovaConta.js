@@ -50,6 +50,7 @@ const NovaConta = (props) => {
                 value={txtSenha}
                 onChangeText={setSenha}
                 placeholder='Digite sua senha'
+                secureTextEntry={true}
               />
             </View>
 
@@ -60,6 +61,7 @@ const NovaConta = (props) => {
                 value={txtConfirmaSenha}
                 onChangeText={setConfirmaSenha}
                 placeholder='Confirme sua senha'
+                secureTextEntry={true}
               />
             </View>
             

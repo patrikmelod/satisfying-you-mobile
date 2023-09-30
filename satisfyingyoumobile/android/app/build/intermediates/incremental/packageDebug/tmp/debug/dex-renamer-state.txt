@@ -1,9 +1,9 @@
-#Sat Sep 30 15:31:49 BRT 2023
+#Sat Sep 30 17:58:56 BRT 2023
 base.0=D\:\\Davi (Perfil)\\Documentos\\UTFPR\\Programação para Dispositivos Moveis\\Parte 1 Projeto\\MAIN\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
-base.1=D\:\\Davi (Perfil)\\Documentos\\UTFPR\\Programação para Dispositivos Moveis\\Parte 1 Projeto\\MAIN\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
-base.2=D\:\\Davi (Perfil)\\Documentos\\UTFPR\\Programação para Dispositivos Moveis\\Parte 1 Projeto\\MAIN\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.1=C\:\\novo-dev\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeLibDexDebug\\0\\classes.dex
+base.2=C\:\\novo-dev\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.3=D\:\\Davi (Perfil)\\Documentos\\UTFPR\\Programação para Dispositivos Moveis\\Parte 1 Projeto\\MAIN\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\11\\classes.dex
-base.4=D\:\\Davi (Perfil)\\Documentos\\UTFPR\\Programação para Dispositivos Moveis\\Parte 1 Projeto\\MAIN\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
+base.4=C\:\\novo-dev\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\14\\classes.dex
 base.5=D\:\\Davi (Perfil)\\Documentos\\UTFPR\\Programação para Dispositivos Moveis\\Parte 1 Projeto\\MAIN\\satisfying-you-mobile\\satisfyingyoumobile\\android\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
 path.0=classes.dex
 path.1=0/classes.dex

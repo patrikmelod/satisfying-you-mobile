@@ -27,7 +27,7 @@ const Login = (props) => {
     }
 
     const goToHome = () => {
-        props.navigation.navigate("Home")
+        props.navigation.navigate("Drawer")
     }
 
     const checkEmailPassword = () => {
@@ -64,6 +64,7 @@ const Login = (props) => {
                                 value={txtSenha}
                                 onChangeText={setSenha}
                                 placeholder='Digite sua senha'
+                                secureTextEntry={true}
                             />
                             {emailPassword && (
                             <Text style={estilos.textoErro}>
@@ -99,9 +100,8 @@ const estilos = StyleSheet.create({
         backgroundColor: '#372775',
         padding: 30,
         flex: 1,
-        flexDIRECTION: 'column',
+        flexDIRECTION: 'row',
         justifyContent: 'space-between',
-     
     },
     titulo: {
         fontSize: 36,
