@@ -20,12 +20,14 @@ const Relatório = () => {
     return(
         <PaperProvider>
             <View style={estilos.view}>
-                <View style={estilos.topbar}>
+                
+                {/* <View style={estilos.topbar}>
                     <TouchableOpacity>
                         <Icon name="arrow-back" size={50} color='#573FBA'/>
                     </TouchableOpacity>
                     <Text style={estilos.titulo}>Relatório</Text>
-                </View>
+                </View> */}
+                
 
                 <View style={estilos.conteudo}>
                     <View>
