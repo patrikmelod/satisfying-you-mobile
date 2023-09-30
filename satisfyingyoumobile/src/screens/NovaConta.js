@@ -28,7 +28,7 @@ const NovaConta = (props) => {
   }
 
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider>
       <View style={estilos.view}>
         <View style={estilos.top}>
           <TextInput
@@ -42,14 +42,12 @@ const NovaConta = (props) => {
             value={txtSenha}
             onChangeText={setSenha}
             placeholder='Digite sua senha'
-            secureTextEntry={true}
           />
           <TextInput
             label="Repetir Senha"
             value={txtConfirmaSenha}
             onChangeText={setConfirmaSenha}
             placeholder='Confirme sua senha'
-            secureTextEntry={true}
           />
         </View>
 

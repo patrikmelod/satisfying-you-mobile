@@ -26,7 +26,7 @@ const RecuperarSenha = (props) => {
     }
 
     return (
-        <PaperProvider theme={theme}>
+        <PaperProvider>
             <View style={estilos.view}>
                 <View style={estilos.top}>
                     <TextInput

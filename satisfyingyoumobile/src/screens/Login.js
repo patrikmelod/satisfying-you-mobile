@@ -19,7 +19,7 @@ const Login = (props) => {
     const [emailPassword, setCheck] = useState(false)
 
     const goToNovaConta = () => {
-        props.navigation.navigate("Nova Conta")
+        props.navigation.navigate("Nova Pesquisa")
     }
 
     const goToRecuperarSenha = () => {
@@ -31,12 +31,11 @@ const Login = (props) => {
             setCheck(true)
         } else {
             setCheck(false)
-            props.navigation.navigate("Home")
         }
     }
 
     return (
-        <PaperProvider theme={theme}>
+        <PaperProvider>
             <View style={estilos.view}>
                 <View style={estilos.top}>
                     <Text style={estilos.texto}>Satisfying.you</Text>
@@ -55,7 +54,6 @@ const Login = (props) => {
                         value={txtSenha}
                         onChangeText={setSenha}
                         placeholder='Digite sua senha'
-                        secureTextEntry={true}
                     />
                 </View>
 
@@ -89,7 +87,8 @@ const estilos = StyleSheet.create({
         padding: 30,
         flex: 1,
         flexDIRECTION: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+     
     },
     texto: {
         fontSize: 36,
