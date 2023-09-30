@@ -19,7 +19,7 @@ const Login = (props) => {
     const [emailPassword, setCheck] = useState(false)
 
     const goToNovaConta = () => {
-        props.navigation.navigate("Nova Conta")
+        props.navigation.navigate("Nova Pesquisa")
     }
 
     const goToRecuperarSenha = () => {
@@ -87,7 +87,8 @@ const estilos = StyleSheet.create({
         padding: 30,
         flex: 1,
         flexDIRECTION: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+     
     },
     texto: {
         fontSize: 36,
