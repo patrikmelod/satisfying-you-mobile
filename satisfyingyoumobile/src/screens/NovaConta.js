@@ -60,7 +60,7 @@ const NovaConta = (props) => {
         </View>
 
         <View style={estilos.bottom}>
-          <Button mode="contained" buttonColor='#228B22' onPress={cadastrar}>
+          <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar}>
             Cadastrar
           </Button>
         </View>
@@ -71,7 +71,7 @@ const NovaConta = (props) => {
 
 const estilos = StyleSheet.create({
   view: {
-    backgroundColor: '#4B0082',
+    backgroundColor: '#372775',
     padding: 30,
     flex: 1,
     flexDIRECTION: 'column',

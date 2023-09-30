@@ -19,38 +19,48 @@ const theme = {
 
 const AcoesPesquisa = props => {
 
+  const goToColeta = () => {
+    props.navigation.navigate("Coleta")
+  }
+
+  const goToModificarPesquisa = () => {
+    props.navigation.navigate("Modificar Pesquisa")
+  }
+
+  const goToRelatorio = () => {
+    props.navigation.navigate("Relatorio")
+  }
+
+  return (
+    <PaperProvider theme={theme}>
+      <View style={estilos.view}>
+
+        <View style={estilos.main}>
+
+          <TouchableOpacity style={estilos.mainfilha} onPress={goToModificarPesquisa}>
+            <Icon name="file-document-edit" size={60} color="white"/>
+            <Text style={estilos.texto}>Modificar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={estilos.mainfilha} onPress={goToColeta}>
+            <Icon name="checkbox-multiple-outline" size={60} color="white"/>
+            <Text style={estilos.texto}>Coletar dados</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={estilos.mainfilha} onPress={goToRelatorio}>
+            <Icon name="chart-donut" size={60} color="white"/>
+            <Text style={estilos.texto}>Relatório</Text>
+          </TouchableOpacity>
+
+        </View>
 
 
-return (
-  <PaperProvider theme={theme}>
-    <View style={estilos.view}>
-
-      <View style={estilos.main}>
-
-        <TouchableOpacity style={estilos.mainfilha}>
-          <Icon name="file-document-edit" size={60} color="white"/>
-          <Text style={estilos.texto}>Modificar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={estilos.mainfilha}>
-          <Icon name="checkbox-multiple-outline" size={60} color="white"/>
-          <Text style={estilos.texto}>Coletar dados</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={estilos.mainfilha}>
-          <Icon name="chart-donut" size={60} color="white"/>
-          <Text style={estilos.texto}>Relatório</Text>
-        </TouchableOpacity>
-
-      </View>
-
-
-      </View>
-  </PaperProvider>
-);
+        </View>
+    </PaperProvider>
+  );
 };
 
 const estilos = StyleSheet.create({
   view: {
-    backgroundColor: '#4B0082',
+    backgroundColor: '#372775',
     padding: 30,
     display:'flex',
     flexDirection: 'column',

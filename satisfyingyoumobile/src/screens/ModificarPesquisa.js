@@ -93,7 +93,7 @@ useEffect(() => {
 
        
         <View style={estilos.bottom}>
-          <Button mode="contained" fontSize='28' buttonColor='#228B22' onPress={cadastrar} style={estilos.botao}>
+          <Button mode="contained" fontSize='28' buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
             SALVAR
           </Button>
 

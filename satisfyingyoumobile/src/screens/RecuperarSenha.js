@@ -43,7 +43,7 @@ const RecuperarSenha = (props) => {
                 </View>
 
                 <View style={estilos.bottom}>
-                    <Button mode="contained" buttonColor='#228B22' onPress={recuperar}>
+                    <Button mode="contained" buttonColor='#37BD6D' onPress={recuperar}>
                         Recuperar
                     </Button>
                 </View>
@@ -54,7 +54,7 @@ const RecuperarSenha = (props) => {
 
 const estilos = StyleSheet.create({
     view: {
-        backgroundColor: '#4B0082',
+        backgroundColor: '#372775',
         padding: 30,
         flex: 1,
         flexDIRECTION: 'column',

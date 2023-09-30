@@ -88,7 +88,7 @@ const NovaPesquisa = (props) => {
        
       <View style={estilos.bottom}>
        
-          <Button mode="contained" buttonColor='#228B22' onPress={cadastrar}>
+          <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar}>
             Cadastrar
           </Button>
         </View>

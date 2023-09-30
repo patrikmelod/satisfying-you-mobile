@@ -26,11 +26,16 @@ const Login = (props) => {
         props.navigation.navigate("Recuperação de Senha")
     }
 
+    const goToHome = () => {
+        props.navigation.navigate("Home")
+    }
+
     const checkEmailPassword = () => {
         if (txtEmail == "" || txtSenha == "") {
             setCheck(true)
         } else {
             setCheck(false)
+            goToHome()
         }
     }
 
@@ -63,16 +68,16 @@ const Login = (props) => {
                             Email e/ou senha inválidos
                         </Text>
                     )}
-                    <Button mode="contained" buttonColor='#228B22' onPress={checkEmailPassword}>
+                    <Button mode="contained" buttonColor='#37BD6D' onPress={checkEmailPassword}>
                         Entrar
                     </Button>
                 </View>
 
                 <View style={estilos.bottom}>
-                    <Button mode="contained" buttonColor='#20B2AA' onPress={goToNovaConta}>
+                    <Button mode="contained" buttonColor='#419ED7' onPress={goToNovaConta}>
                         Criar minha conta
                     </Button>
-                    <Button mode="contained" buttonColor='#A9A9A9' onPress={goToRecuperarSenha}>
+                    <Button mode="contained" buttonColor='#B0CCDE' onPress={goToRecuperarSenha}>
                         Esqueci minha senha
                     </Button>
                 </View>
@@ -83,7 +88,7 @@ const Login = (props) => {
 
 const estilos = StyleSheet.create({
     view: {
-        backgroundColor: '#4B0082',
+        backgroundColor: '#372775',
         padding: 30,
         flex: 1,
         flexDIRECTION: 'column',

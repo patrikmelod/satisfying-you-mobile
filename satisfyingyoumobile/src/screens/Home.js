@@ -62,7 +62,7 @@ const Home = props => {
 
           <Button
             mode="contained"
-            buttonColor="#228B22"
+            buttonColor="#37BD6D"
             onPress={goToPesquisa}>
             NOVA PESQUISA
           </Button>
@@ -73,7 +73,7 @@ const Home = props => {
 
 const estilos = StyleSheet.create({
   view: {
-    backgroundColor: '#4B0082',
+    backgroundColor: '#372775',
     padding: 30,
     display:'flex',
     flexDirection: 'column',
