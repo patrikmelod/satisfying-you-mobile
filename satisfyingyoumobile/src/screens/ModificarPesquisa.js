@@ -60,7 +60,6 @@ useEffect(() => {
             <TextInput
               style={estilos.txtInput}
               value={txtNome}
-              
             />
            {checkNome &&   <Text style={estilos.warning}>Preencha o nome</Text>}
 
@@ -68,7 +67,7 @@ useEffect(() => {
           <View style={estilos.middleData}>
              <Text style={estilos.texto}>Data</Text>
              <View style={estilos.txtInputData}>
-                  <Icon name="event" size={27} color='#000000'style={estilos.iconData} />
+                  <Icon name="event" size={27} color='#878787' style={estilos.iconData} />
                   <TextInput  
                     style={estilos.txtInputDdata}
                     value={data}
@@ -85,8 +84,6 @@ useEffect(() => {
               value={ img}
               onChangeText={setData}
             />
-          
-
           </View>
          
         </View>
@@ -134,33 +131,33 @@ const estilos = StyleSheet.create({
     flex: 0.30,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    
- 
-},
-txtInputData: {
-  flexDirection: 'row-reverse', 
-  alignItems: 'left',
-  backgroundColor: '#fff'
-},
-iconData: {
-  paddingTop: 20,
-  paddingLeft: 10,
-  justifyContent: 'center',
-  alignItems: 'center'
-},
-txtInputDdata: {
-  flex: 1,
-  fontSize: 28,
-  backgroundColor: '#fff'
-},
+  },
+  txtInputData: {
+    flexDirection: 'row-reverse', 
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
+  iconData: {
+    //paddingTop: 20,
+    //paddingLeft: 10,
+    //justifyContent: 'center',
+    //alignItems: 'center'
+  },
+  txtInputDdata: {
+    flex: 1,
+    fontSize: 28,
+    backgroundColor: '#fff'
+  },
 
-middleImage: {
-  paddingTop: 60,
-  flex: 0.30,
-  flexDirection: 'column',
-  width: '50%',
-  height: 300,
-},
+  middleImage: {
+    paddingTop: 60,
+    flex: 0.30,
+    flexDirection: 'column',
+    width: '50%',
+    height: 300,
+  },
   bottom: {
     flex: 0.3,
     flexDirection: 'row',
@@ -173,15 +170,17 @@ middleImage: {
   txtInput: {
     fontSize: 28,
     color: '#3F92C5',
-    
+    backgroundColor: '#fff'
   },
   
   botao: {
     width: '82%',
     height: 50,
     borderRadius: 0,
-    
+    textAlign: 'center',
+    justifyContent: 'center'
   },
+  
   trash: {
     width: '18%',
     height: 50,
@@ -195,14 +194,16 @@ middleImage: {
   },
   insertImg: {
     height: 90,
+    backgroundColor: '#fff'
    },
-   modalPopUp: {
-    justifyContent: 'center',
-   alignItems: 'center,',
-   resizeMode: 'contain',
-   width: 70,
-   height: 70,
-   },
+
+  modalPopUp: {
+      justifyContent: 'center',
+    alignItems: 'center,',
+    resizeMode: 'contain',
+    width: 70,
+    height: 70,
+  },
    
    
 })

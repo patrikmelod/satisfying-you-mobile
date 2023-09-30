@@ -30,38 +30,55 @@ const NovaConta = (props) => {
   return (
     <PaperProvider>
       <View style={estilos.view}>
-        <View style={estilos.top}>
-          <TextInput
-            label="Email"
-            value={txtEmail}
-            onChangeText={setEmail}
-            placeholder='Digite seu email'
-          />
-          <TextInput
-            label="Senha"
-            value={txtSenha}
-            onChangeText={setSenha}
-            placeholder='Digite sua senha'
-          />
-          <TextInput
-            label="Repetir Senha"
-            value={txtConfirmaSenha}
-            onChangeText={setConfirmaSenha}
-            placeholder='Confirme sua senha'
-          />
+        
+        <View>
+          <View style={estilos.top}>
+            <View>
+              <Text style={estilos.texto}>Email</Text>
+              <TextInput
+                label="Email"
+                value={txtEmail}
+                onChangeText={setEmail}
+                placeholder='Digite seu email'
+              />
+            </View>
+
+            <View>
+              <Text style={estilos.texto}>Senha</Text>
+              <TextInput
+                label="Senha"
+                value={txtSenha}
+                onChangeText={setSenha}
+                placeholder='Digite sua senha'
+              />
+            </View>
+
+            <View>
+              <Text style={estilos.texto}>Repetir Senha</Text>
+              <TextInput
+                label="Repetir Senha"
+                value={txtConfirmaSenha}
+                onChangeText={setConfirmaSenha}
+                placeholder='Confirme sua senha'
+              />
+            </View>
+            
+
+          </View>
+
+          <View style={estilos.middle}>
+            {checkText && (
+                <Text style={estilos.textoErro}>
+                  O campo repetir senha difere da senha
+                </Text>
+              )}
+          </View>
         </View>
 
-        <View style={estilos.middle}>
-          {checkText && (
-            <Text style={estilos.texto}>
-              O campo repetir senha difere da senha
-            </Text>
-          )}
-        </View>
 
         <View style={estilos.bottom}>
-          <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar}>
-            Cadastrar
+          <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
+            CADASTRAR
           </Button>
         </View>
       </View>
@@ -78,28 +95,37 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between'
   },
   texto: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    fontFamily: 'AveriaLibre-Light',
+  },
+  textoErro: {
     fontSize: 15,
-    color: '#DC143C',
-    fontFamily: 'AveriaLibre-Bold'
+    color: '#FD7979',
+    fontFamily: 'AveriaLibre-Bold',
+    marginTop: 5
   },
   top: {
     paddingTop: 100,
-    flex: 0.6,
+    //flex: 0.6,
     flexDirection: 'column',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    gap: 15
   },
   middle: {
-    paddingTop: 10,
     paddingBottom: 200,
-    flex: 0.1,
+    //flex: 0.1,
     flexDirection: 'column',
     justifyContent: 'flex-start'
   },
   bottom: {
-    flex: 0.3,
+    //flex: 0.3,
     flexDirection: 'column',
     justifyContent: 'space-between',
-  }
+  },
+  botao: {
+    borderRadius: 0,
+  } 
 })
 
 export default NovaConta

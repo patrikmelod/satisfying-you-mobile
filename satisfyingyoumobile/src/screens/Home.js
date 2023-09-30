@@ -63,7 +63,7 @@ const Home = props => {
           <Button
             mode="contained"
             buttonColor="#37BD6D"
-            onPress={goToPesquisa}>
+            onPress={goToPesquisa} style={estilos.botao}>
             NOVA PESQUISA
           </Button>
         </View>
@@ -115,10 +115,13 @@ const estilos = StyleSheet.create({
     justifyContent:'flex-start',
     display:'flex',
     flexDirection:'row',
-
+    alignItems: 'center',
+    textAlign: 'center'
   },
 
-
+  botao: {
+    borderRadius: 0,
+  } 
 });
 
 export default Home;

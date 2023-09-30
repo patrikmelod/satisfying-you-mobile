@@ -29,21 +29,25 @@ const RecuperarSenha = (props) => {
         <PaperProvider>
             <View style={estilos.view}>
                 <View style={estilos.top}>
-                    <TextInput
-                        label="Email"
-                        value={txtEmail}
-                        onChangeText={setEmail}
-                        placeholder='Digite seu email'
-                    />
+                    <View>
+                        <Text style={estilos.texto}>Email</Text>
+                        <TextInput
+                            label="Email"
+                            value={txtEmail}
+                            onChangeText={setEmail}
+                            placeholder='Digite seu email'
+                        />
+                    </View>
+
                     {checkEmail && (
-                        <Text style={estilos.texto}>
+                        <Text style={estilos.textoErro}>
                             E-mail parece ser inválido
                         </Text>
                     )}
                 </View>
 
                 <View style={estilos.bottom}>
-                    <Button mode="contained" buttonColor='#37BD6D' onPress={recuperar}>
+                    <Button mode="contained" buttonColor='#37BD6D' onPress={recuperar} style={estilos.botao}>
                         Recuperar
                     </Button>
                 </View>
@@ -61,8 +65,13 @@ const estilos = StyleSheet.create({
         justifyContent: 'flex-start'
     },
     texto: {
+        fontSize: 16,
+        color: '#FFFFFF',
+        fontFamily: 'AveriaLibre-Light',
+    },
+    textoErro: {
         fontSize: 15,
-        color: '#DC143C',
+        color: '#FD7979',
         fontFamily: 'AveriaLibre-Bold'
     },
     top: {
@@ -75,7 +84,10 @@ const estilos = StyleSheet.create({
         flex: 0.70,
         flexDirection: 'column',
         justifyContent: 'center',
-    }
+    },
+    botao: {
+        borderRadius: 0,
+    } 
 })
 
 export default RecuperarSenha;

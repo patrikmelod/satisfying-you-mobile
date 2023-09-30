@@ -88,8 +88,8 @@ const NovaPesquisa = (props) => {
        
       <View style={estilos.bottom}>
        
-          <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar}>
-            Cadastrar
+          <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
+            CADASTRAR
           </Button>
         </View>
        
@@ -141,8 +141,11 @@ middleImage: {
   txtInput: {
     fontSize: 28,
     color: "red",
-    
+    backgroundColor: '#fff'
   },
+  botao: {
+    borderRadius: 0,
+  }
 })
 
 export default NovaPesquisa

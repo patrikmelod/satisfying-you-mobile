@@ -43,41 +43,49 @@ const Login = (props) => {
         <PaperProvider>
             <View style={estilos.view}>
                 <View style={estilos.top}>
-                    <Text style={estilos.texto}>Satisfying.you</Text>
+                    <Text style={estilos.titulo}>Satisfying.you</Text>
                     <Icon name="mood" size={60} color='#FFFFFF' />
                 </View>
 
-                <View style={estilos.middleTop}>
-                    <TextInput
-                        label="Email"
-                        value={txtEmail}
-                        onChangeText={setEmail}
-                        placeholder='Digite seu email'
-                    />
-                    <TextInput
-                        label="Senha"
-                        value={txtSenha}
-                        onChangeText={setSenha}
-                        placeholder='Digite sua senha'
-                    />
-                </View>
+                <View style={estilos.middle}>
+                    <View style={estilos.middleTop}>
+                        <View>
+                            <Text style={estilos.texto}>Email</Text>
+                            <TextInput
+                                value={txtEmail}
+                                onChangeText={setEmail}
+                                placeholder='Digite seu email'
+                            />
+                        </View>
 
-                <View style={estilos.middleBottom}>
-                    {emailPassword && (
-                        <Text style={estilos.textoErro}>
-                            Email e/ou senha inválidos
-                        </Text>
-                    )}
-                    <Button mode="contained" buttonColor='#37BD6D' onPress={checkEmailPassword}>
-                        Entrar
-                    </Button>
+                        <View>
+                            <Text style={estilos.texto}>Senha</Text>
+                            <TextInput
+                                value={txtSenha}
+                                onChangeText={setSenha}
+                                placeholder='Digite sua senha'
+                            />
+                            {emailPassword && (
+                            <Text style={estilos.textoErro}>
+                                Email e/ou senha inválidos
+                            </Text>
+                            )}  
+                        </View>
+                    </View>
+
+                    <View style={estilos.middleBottom}>
+                        <Button mode="contained" buttonColor='#37BD6D' onPress={checkEmailPassword} style={estilos.botao}>
+                            Entrar
+                        </Button>
+                    </View>
                 </View>
+                
 
                 <View style={estilos.bottom}>
-                    <Button mode="contained" buttonColor='#419ED7' onPress={goToNovaConta}>
+                    <Button mode="contained" buttonColor='#419ED7' onPress={goToNovaConta} style={estilos.botao}>
                         Criar minha conta
                     </Button>
-                    <Button mode="contained" buttonColor='#B0CCDE' onPress={goToRecuperarSenha}>
+                    <Button mode="contained" buttonColor='#B0CCDE' onPress={goToRecuperarSenha} style={estilos.botao}>
                         Esqueci minha senha
                     </Button>
                 </View>
@@ -95,41 +103,53 @@ const estilos = StyleSheet.create({
         justifyContent: 'space-between',
      
     },
-    texto: {
+    titulo: {
         fontSize: 36,
         color: '#FFFFFF',
         fontFamily: 'AveriaLibre-Bold'
     },
+    texto: {
+        fontSize: 16,
+        color: '#FFFFFF',
+        fontFamily: 'AveriaLibre-Light',
+    },
     textoErro: {
         fontSize: 15,
-        color: '#DC143C',
-        fontFamily: 'AveriaLibre-Bold'
+        color: '#FD7979',
+        fontFamily: 'AveriaLibre-Bold',
+        marginTop: 5
     },
     top: {
+        marginTop: 30,
         paddingHorizontal: 10,
-        flex: 0.30,
+        //flex: 0.30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
     middleTop: {
         paddingTop: 60,
-        flex: 0.30,
+        //flex: 0.30,
         flexDirection: 'column',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        gap: 15
     },
     middleBottom: {
         paddingTop: 10,
         paddingBottom: 100,
-        flex: 0.20,
+        //flex: 0.20,
         flexDirection: 'column',
         justifyContent: 'space-between'
     },
     bottom: {
         paddingVertical: 20,
-        flex: 0.20,
+        gap: 20,
+        //flex: 0.20,
         flexDirection: 'column',
         justifyContent: 'space-between',
+    },
+    botao: {
+        borderRadius: 0,
     }
 })
 
