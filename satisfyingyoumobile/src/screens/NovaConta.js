@@ -1,6 +1,8 @@
 import { View, StyleSheet, Text } from 'react-native'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth_mod } from '../firebase/config'
 
 const theme = {
   ...DefaultTheme,
@@ -19,11 +21,17 @@ const NovaConta = (props) => {
   const [checkText, setCheckText] = useState(false)
 
   const cadastrar = () => {
-    if (txtConfirmaSenha != txtSenha || txtConfirmaSenha == "") {
+    if (txtConfirmaSenha != txtSenha) {
       setCheckText(true)
     } else {
-      setCheckText(false)
-      props.navigation.goBack()
+      createUserWithEmailAndPassword(auth_mod, txtEmail, txtSenha)
+        .then((userCredential) => {
+            setCheckText(false)
+            props.navigation.goBack()
+          })
+        .catch((error) => {
+          setCheckText(true)
+        })
     }
   }
 

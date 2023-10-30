@@ -1,6 +1,9 @@
 import { View, StyleSheet, Text, TextBase } from 'react-native'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
+import { collection, initializeFirestore, addDoc } from 'firebase/firestore'
+import { app } from '../firebase/config'
+import { Card } from '../components/Card'
 
 const theme = {
   ...DefaultTheme,
@@ -20,33 +23,36 @@ const NovaPesquisa = (props) => {
   const [checkNome, setCheckNome] = useState(false)
   const [checkData, setCheckData] = useState(false)
 
+  const db = initializeFirestore(app, {experimentalForceLongPolling: true})
+  const pesquisaCollection = collection(db, "pesquisas")
 
-  const cadastrar = (prop) => {
-    
+  const cadastrar = () => {
+    const docPesquisa = {
+      nome: nome,
+      data: data,
+      img: img
+    }
+
     if (nome == "") {
       setCheckNome(true)
-      if(data== ""){
-        setCheckData(true) }
-   }
-   else {
-     if(data == ""){
-      setCheckData(true)
-      if (nome == "") {
-        setCheckNome(true)
-      }
-     } 
-     else {
-      setPesquisa([...pesquisa, { nome, data, img }]);
-      setNome('');
-      setData('');
-      setImg('');
-      setCheckNome(false)
-      setCheckData(false)   
-      props.navigation.navigate('Modificar Pesquisa')
+    } else if (data == "") {
+      setCheckData(true) 
+    } else {
+      addDoc(pesquisaCollection, docPesquisa)
+      .then((docRef) => {
+        setPesquisa([...pesquisa, { nome, data, img }]);
+        setNome('');
+        setData('');
+        setImg('');
+        setCheckNome(false)
+        setCheckData(false)   
+        props.navigation.goBack()
+      })
+      .catch((error) => {
+      })
     }
-   }
-}
-
+  }
+  
   return (
     <PaperProvider>
       <View style={estilos.view}>

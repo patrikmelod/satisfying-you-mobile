@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import {View, StyleSheet,TextInput, Text} from 'react-native';
+import {View, StyleSheet,TextInput, Text, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import {
   PaperProvider,
@@ -8,6 +8,11 @@ import {
 } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Card from '../components/Card'
+import { useEffect, useState } from 'react';
+import { collection, initializeFirestore, onSnapshot, query } from '@firebase/firestore';
+import { app } from '../firebase/config';
+import { useDispatch } from 'react-redux';
+import { reducerSetPesquisa } from '../../redux/pesquisaSlice';
 
 const theme = {
   ...DefaultTheme,
@@ -20,19 +25,61 @@ const theme = {
 
 const Home = props => {
 
+  const [nome, setNome] = useState('')
+  const [data, setData] = useState('')
+  const [img, setImg] = useState('')
+
+  const dispatch = useDispatch()
+
+  const [listPesquisas, setListaPesquisa] = useState()
+  
+  const db = initializeFirestore(app, {experimentalForceLongPolling: true})
+  const pesquisaCollection = collection(db, "pesquisas")
+
+  useEffect(() => {
+    const q = query(pesquisaCollection)
+
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const pesquisas = []
+      snapshot.forEach((doc) => {
+        pesquisas.push({
+          id: doc.id,
+          ...doc.data() 
+        })
+      })
+
+      setListaPesquisa(pesquisas)
+    })
+  }, [])
+
   const goToPesquisa = () => {
     props.navigation.navigate('Nova Pesquisa');
   };
 
   const goToAcoesPesquisa = () => {
+    dispatch(reducerSetPesquisa({
+      nome: nome,
+      data: data,
+      img: img
+    })) 
     props.navigation.navigate("Ações Pesquisa")
   }
 
+  const itemPesquisa = ({item}) => {
+    return(
+      <Card onPress={goToAcoesPesquisa} 
+      iconName={'devices'} 
+      iconColor={'brown'} 
+      title={item.nome} 
+      date={item.data}/>
+    )
+  }
+
+  let numColumns=100;
 
   return (
     <PaperProvider theme={theme}>
       <View style={estilos.view}>
-
 
         <TouchableOpacity style={estilos.searchBar}>
           <Icon name="search" size={36} />
@@ -40,11 +87,8 @@ const Home = props => {
         </TouchableOpacity>
 
         <View style={estilos.main}>
-          <Card onPress={goToAcoesPesquisa} iconName={'devices'} iconColor={'brown'} title={'SECOMP 2023'} date={'10/10/2023'}/>
-          <Card onPress={goToAcoesPesquisa} iconName={'people'} iconColor={'black'} title={'UBUNTU 2022'} date={'05/06/2022'}/>
-          <Card onPress={goToAcoesPesquisa} iconName={'woman'} iconColor={'red'} title={'MENINAS CPU'} date={'01/04/2022'}/>
+          <FlatList data={listPesquisas} renderItem={itemPesquisa} keyExtractor={pesquisa => pesquisa.id} style={estilos.main} numColumns={numColumns}/>
         </View>
-
 
           <Button
             mode="contained"
@@ -65,9 +109,7 @@ const estilos = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-around',
     height:'100%',
-
   },
-
   titulo:{
     fontSize:16,
     color:'#3F92C5',
@@ -78,8 +120,6 @@ const estilos = StyleSheet.create({
     color: 'gray',
     fontFamily: 'AveriaLibre-Bold',
   },
-
-
   main:{
     display:'flex',
     flexDirection:'row',

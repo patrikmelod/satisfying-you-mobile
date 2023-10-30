@@ -1,6 +1,8 @@
 import { View, StyleSheet, Text } from 'react-native'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
+import { sendPasswordResetEmail } from '@firebase/auth'
+import { auth_mod } from '../firebase/config'
 
 const theme = {
     ...DefaultTheme,
@@ -17,12 +19,14 @@ const RecuperarSenha = (props) => {
     const [checkEmail, setCheck] = useState(false)
 
     const recuperar = () => {
-        if (txtEmail == "") {
-            setCheck(true)
-        } else {
+        sendPasswordResetEmail(auth_mod, txtEmail)
+        .then((info) => {
             props.navigation.goBack()
             setCheck(false)
-        }
+        })
+        .catch((error) => {
+            setCheck(true)
+        })
     }
 
     return (

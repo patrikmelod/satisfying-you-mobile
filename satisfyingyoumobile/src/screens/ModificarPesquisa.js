@@ -1,8 +1,11 @@
 import { View, StyleSheet, Text, TextBase, TouchableOpacity } from 'react-native'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
-import { useState,useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import PopUp from '../components/PopUp'
+import { updateDoc, doc, collection } from '@firebase/firestore'
+import { initializeFirestore } from '@firebase/firestore'
+import { app } from '../firebase/config'
 
 const theme = {
   ...DefaultTheme,
@@ -13,7 +16,7 @@ const theme = {
   }
 }
 
-  const ModificarPesquisa = (props) => {
+const ModificarPesquisa = (props) => {
 
   const [txtNome, setNome] = useState('')
   const [data, setData] = useState('')
@@ -22,19 +25,19 @@ const theme = {
   const [checkData, setCheckData] = useState(props.checkData)
   const [popupVisible, setPopupVisible] = useState(false);
 
-
-  const cadastrar = (prop) => {
+  const cadastrar = (props) => {
     if (txtNome == "") {
       setCheckNome(true)
-  } else {
-     if(data== ""){
-      setCheckData(true)
-  } else {
-    props.navigation.goBack()
-    setCheckNome(false)
-    setCheckData(false)
+    } else {
+      if (data == "") {
+        setCheckData(true)
+      } else {
+        changePesquisa(id)
+        props.navigation.goBack()
+        setCheckNome(false)
+        setCheckData(false)
+      }
     }
-  }
   }
 
   // const gotoApagar = () => {
@@ -42,11 +45,10 @@ const theme = {
   // }
 
   useEffect(() => {
- 
-  setNome('Carnaval 2024');
-  setData('22/08/2023');
-  setImg(<Icon name="mood" size={60} color='#FFFFFF' />)
-  }, [] ); 
+    setNome('Carnaval 2024');
+    setData('22/08/2023');
+    setImg(<Icon name="mood" size={60} color='#FFFFFF' />)
+  }, []);
 
 
   const handleConfirm = () => {
@@ -68,51 +70,51 @@ const theme = {
               style={estilos.txtInput}
               value={txtNome}
             />
-           {checkNome &&   <Text style={estilos.warning}>Preencha o nome</Text>}
+            {checkNome && <Text style={estilos.warning}>Preencha o nome</Text>}
 
           </View>
           <View style={estilos.middleData}>
-             <Text style={estilos.texto}>Data</Text>
-             <View style={estilos.txtInputData}>
-                  <Icon name="event" size={27} color='#878787' style={estilos.iconData} />
-                  <TextInput  
-                    style={estilos.txtInputDdata}
-                    value={data}
-                    onChangeText={setData}
-                  />
-              </View>
-            {checkNome &&   <Text style={estilos.warning}>Preencha o nome</Text>}
+            <Text style={estilos.texto}>Data</Text>
+            <View style={estilos.txtInputData}>
+              <Icon name="event" size={27} color='#878787' style={estilos.iconData} />
+              <TextInput
+                style={estilos.txtInputDdata}
+                value={data}
+                onChangeText={setData}
+              />
+            </View>
+            {checkNome && <Text style={estilos.warning}>Preencha o nome</Text>}
           </View>
 
           <View style={estilos.middleImage}>
             <Text style={estilos.texto}>Imagem</Text>
-            <TextInput  
+            <TextInput
               style={estilos.insertImg}
-              value={ img}
+              value={img}
               onChangeText={setData}
             />
           </View>
-         
+
         </View>
 
-       
+
         <View style={estilos.bottom}>
           <Button mode="contained" fontSize='28' buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
             SALVAR
           </Button>
 
           <TouchableOpacity style={estilos.trash} onPress={() => setPopupVisible(true)}>
-            <Icon name="delete" size={27} color='#FFFFFF'  />
-            <Text  style={estilos.trashText}>Apagar</Text>
+            <Icon name="delete" size={27} color='#FFFFFF' />
+            <Text style={estilos.trashText}>Apagar</Text>
           </TouchableOpacity >
-          
+
         </View>
-          <PopUp visible={popupVisible}
+        <PopUp visible={popupVisible}
           onConfirm={handleConfirm}
           onClose={handleClose}></PopUp>
       </View>
-      
-    
+
+
     </PaperProvider>
   )
 }
@@ -142,7 +144,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between',
   },
   txtInputData: {
-    flexDirection: 'row-reverse', 
+    flexDirection: 'row-reverse',
     alignItems: 'center',
     backgroundColor: '#fff',
     textAlign: 'center',
@@ -173,15 +175,15 @@ const estilos = StyleSheet.create({
     justifyContent: 'flex-end'
   },
   warning: {
-   fontSize: 18,
-   color: "#FD7979",
+    fontSize: 18,
+    color: "#FD7979",
   },
   txtInput: {
     fontSize: 28,
     color: '#3F92C5',
     backgroundColor: '#fff'
   },
-  
+
   botao: {
     width: '82%',
     height: 50,
@@ -189,32 +191,32 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center'
   },
-  
+
   trash: {
     width: '18%',
     height: 50,
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-    
+
   },
   trashText: {
-   color: 'white',
+    color: 'white',
   },
   insertImg: {
     height: 90,
     backgroundColor: '#fff'
-   },
+  },
 
   modalPopUp: {
-      justifyContent: 'center',
+    justifyContent: 'center',
     alignItems: 'center,',
     resizeMode: 'contain',
     width: 70,
     height: 70,
   },
-   
-   
+
+
 })
 
 export default ModificarPesquisa

@@ -2,6 +2,8 @@ import { View, StyleSheet, Text } from 'react-native'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import { signInWithEmailAndPassword } from '@firebase/auth'
+import { auth_mod } from '../firebase/config'
 
 const theme = {
     ...DefaultTheme,
@@ -31,12 +33,14 @@ const Login = (props) => {
     }
 
     const checkEmailPassword = () => {
-        if (txtEmail == "" || txtSenha == "") {
-            setCheck(true)
-        } else {
+        signInWithEmailAndPassword(auth_mod, txtEmail, txtSenha)
+        .then((info) => {
             setCheck(false)
             goToHome()
-        }
+        })
+        .catch((error) => {
+            setCheck(true)
+        })
     }
 
     return (
