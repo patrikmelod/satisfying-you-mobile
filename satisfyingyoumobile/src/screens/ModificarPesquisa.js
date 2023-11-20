@@ -6,6 +6,8 @@ import PopUp from '../components/PopUp'
 import { updateDoc, doc, collection } from '@firebase/firestore'
 import { initializeFirestore } from '@firebase/firestore'
 import { app } from '../firebase/config'
+import { useSelector } from 'react-redux'
+import { deleteDoc } from 'firebase/firestore'
 
 const theme = {
   ...DefaultTheme,
@@ -18,42 +20,48 @@ const theme = {
 
 const ModificarPesquisa = (props) => {
 
-  const [txtNome, setNome] = useState('')
-  const [data, setData] = useState('')
-  const [img, setImg] = useState('')
-  const [checkNome, setCheckNome] = useState(props.checkNome)
-  const [checkData, setCheckData] = useState(props.checkData)
+  const idRed = useSelector((state) => state.pesquisa.id)
+  const nomeRed = useSelector((state) => state.pesquisa.nome)
+  const dataRed = useSelector((state) => state.pesquisa.data)
+  const imgRed = useSelector((state) => state.pesquisa.img)
+
+  const [txtNome, setNome] = useState(nomeRed)
+  const [data, setData] = useState(dataRed)
+  const [img, setImg] = useState(imgRed)
+
+  const [checkNome, setCheckNome] = useState(false)
+  const [checkData, setCheckData] = useState(false)
   const [popupVisible, setPopupVisible] = useState(false);
 
-  const cadastrar = (props) => {
+  const db = initializeFirestore(app, { experimentalForceLongPolling: true })
+
+  const changePesquisa = (id) => {
+    const pesqRef = doc(db, "pesquisas", id)
+
+    updateDoc(pesqRef, {
+      nome: '' + txtNome,
+      data: '' + data,
+      img: '' + img
+    })
+  }
+
+  const cadastrar = () => {
     if (txtNome == "") {
       setCheckNome(true)
+    } else if (data == "") {
+      setCheckData(true)
     } else {
-      if (data == "") {
-        setCheckData(true)
-      } else {
-        changePesquisa(id)
-        props.navigation.goBack()
-        setCheckNome(false)
-        setCheckData(false)
-      }
+      setCheckNome(false)
+      setCheckData(false)
+      changePesquisa(idRed)
+      props.navigation.goBack()
     }
   }
 
-  // const gotoApagar = () => {
-  //   setPopUp(!popup)
-  // }
-
-  useEffect(() => {
-    setNome('Carnaval 2024');
-    setData('22/08/2023');
-    setImg(<Icon name="mood" size={60} color='#FFFFFF' />)
-  }, []);
-
-
   const handleConfirm = () => {
-    // AQUI ADICIONAR DEPOIS O QUE FAZER SE CONFIRMAR (NO CASO SERIA PARA REMOVER O CARD)
+    deleteDoc(doc(db, "pesquisas", idRed))
     setPopupVisible(false);
+    props.navigation.navigate('Home')
   };
 
   const handleClose = () => {
@@ -69,9 +77,9 @@ const ModificarPesquisa = (props) => {
             <TextInput
               style={estilos.txtInput}
               value={txtNome}
+              onChangeText={setNome}
             />
             {checkNome && <Text style={estilos.warning}>Preencha o nome</Text>}
-
           </View>
           <View style={estilos.middleData}>
             <Text style={estilos.texto}>Data</Text>
@@ -83,7 +91,7 @@ const ModificarPesquisa = (props) => {
                 onChangeText={setData}
               />
             </View>
-            {checkNome && <Text style={estilos.warning}>Preencha o nome</Text>}
+            {checkData && <Text style={estilos.warning}>Preencha a data</Text>}
           </View>
 
           <View style={estilos.middleImage}>
@@ -91,12 +99,10 @@ const ModificarPesquisa = (props) => {
             <TextInput
               style={estilos.insertImg}
               value={img}
-              onChangeText={setData}
+              onChangeText={setImg}
             />
           </View>
-
         </View>
-
 
         <View style={estilos.bottom}>
           <Button mode="contained" fontSize='28' buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
@@ -107,7 +113,6 @@ const ModificarPesquisa = (props) => {
             <Icon name="delete" size={27} color='#FFFFFF' />
             <Text style={estilos.trashText}>Apagar</Text>
           </TouchableOpacity >
-
         </View>
         <PopUp visible={popupVisible}
           onConfirm={handleConfirm}

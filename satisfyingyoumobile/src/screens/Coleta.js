@@ -3,6 +3,7 @@ import { PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
+import { useSelector } from 'react-redux'
 
 const theme = {
     ...DefaultTheme,
@@ -17,15 +18,18 @@ const Coleta = (props) => {
 
     const [feedback, setFeedback] = useState('')
 
+    const nomeRed = useSelector((state) => state.pesquisa.nome)
     goToAgradecimento = () => {
         props.navigation.navigate("Agradecimento")
     }
+
+    var titulo = "O que você achou do " + nomeRed + "?"
 
     return(
         <PaperProvider>
             <View style={estilos.view}>
                 <View>
-                    <Text style={estilos.titulo}>O que você achou do Carnaval 2024?</Text>
+                    <Text style={estilos.titulo}>{titulo}</Text>
                 </View>
 
                 <View style={estilos.conteudo}>
