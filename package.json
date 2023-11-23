@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "react-native-paper": "^5.10.4",
-    "react-native-safe-area-context": "^4.7.2"
+    "react-native-safe-area-context": "^4.7.2",
+    "react-native-svg-charts": "^5.4.0"
   }
 }

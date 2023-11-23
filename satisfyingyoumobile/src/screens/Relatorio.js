@@ -1,114 +1,77 @@
-import { View, StyleSheet, Text } from 'react-native'
-import { PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper'
-import Icon from 'react-native-vector-icons/MaterialIcons'
-import { useState } from 'react'
-import { TouchableOpacity } from 'react-native'
-import { Image } from 'react-native'
+import {View, StyleSheet, Text} from 'react-native';
+import {PaperProvider, MD3LightTheme as DefaultTheme} from 'react-native-paper';
+import {PieChart} from 'react-native-svg-charts';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import {useState} from 'react';
+import {TouchableOpacity} from 'react-native';
+import {Image} from 'react-native';
 
 const theme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: 'blue',
-        secondary: 'green'
-    }
-}
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'blue',
+    secondary: 'green',
+  },
+};
 
 const Relatório = () => {
+  const data = [
+    {
+      key: 1,
+      value: 1,
+      svg: {fill: '#D71616'},
+      arc: {outerRadius: '130%', cornerRadius: 10},
+    },
+    {
+      key: 2,
+      value: 1,
+      svg: {fill: '#FF360A'},
+    },
+    {
+      key: 3,
+      value: 1,
+      svg: {fill: '#FFC632'},
+    },
+    {
+      key: 4,
+      value: 1,
+      svg: {fill: '#37BD6D'},
+    },
+    {
+      key: 5,
+      value: 1,
+      svg: {fill: '#25BC22'},
+    },
+  ];
+  return (
+    <PaperProvider>
+      <View style={estilos.view}>
+        <View>
+          <Text style={{color: '#D71616', fontWeight: 'bold'}}> Péssimo</Text>
+          <Text style={{color: '#FF360A', fontWeight: 'bold'}}> Ruim</Text>
+          <Text style={{color: '#FFC632', fontWeight: 'bold'}}> Neutro</Text>
+          <Text style={{color: '#37BD6D', fontWeight: 'bold'}}> Bom</Text>
+          <Text style={{color: '#25BC22', fontWeight: 'bold'}}> Excelente</Text>
+        </View>
 
-
-    return(
-        <PaperProvider>
-            <View style={estilos.view}>
-                
-                {/* <View style={estilos.topbar}>
-                    <TouchableOpacity>
-                        <Icon name="arrow-back" size={50} color='#573FBA'/>
-                    </TouchableOpacity>
-                    <Text style={estilos.titulo}>Relatório</Text>
-                </View> */}
-                
-
-                <View style={estilos.conteudo}>
-                    <View>
-                        <Image style={{ width: 200, height: 200 }} source={{uri:'https://i.imgur.com/WrXatDn.png'}}/>
-                    </View>
-
-                    <View style={estilos.legenda}> 
-                        <View style={estilos.feedbackLegenda}>
-                            <View style={{ width: 20, height: 20, backgroundColor: '#25BC22'}} ></View>
-                            <Text style={estilos.texto}>Excelente</Text>
-                        </View>
-
-                        <View style={estilos.feedbackLegenda}>
-                            <View style={{ width: 20, height: 20, backgroundColor: '#37BD6D'}}></View>
-                            <Text style={estilos.texto}>Bom</Text>
-                        </View>
-
-                        <View style={estilos.feedbackLegenda}>
-                            <View style={{ width: 20, height: 20, backgroundColor: '#FFC632'}}></View>
-                            <Text style={estilos.texto}>Neutro</Text>
-                        </View>
-
-                        <View  style={estilos.feedbackLegenda}>
-                            <View style={{ width: 20, height: 20, backgroundColor: '#FF360A'}}></View>
-                            <Text style={estilos.texto}>Ruim</Text>
-                        </View>
-
-                        <View style={estilos.feedbackLegenda}>
-                            <View style={{ width: 20, height: 20, backgroundColor: '#D71616'}}></View>
-                            <Text style={estilos.texto}>Pessimo</Text>
-                        </View>
-                    </View>
-                </View>
-            </View>
-        </PaperProvider>
-    )
-}
+        <PieChart
+          style={{height: 400}}
+          outerRadius={'70%'}
+          innerRadius={20}
+          data={data}
+        />
+      </View>
+    </PaperProvider>
+  );
+};
 
 const estilos = StyleSheet.create({
-    view: {
-        backgroundColor: '#372775',
-        flex: 1,
-    },
-    topbar: {
-        backgroundColor: 'rgba(0,0, 0, .2)',
-        width: '100%',
-        height: '9%',
-        alignItems: 'center',
-        flexDirection: 'row',
-        paddingHorizontal: 10
-    },
-    conteudo: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: 35,
-        marginTop: 100
-    },
-    titulo: {
-        fontSize: 30,
-        color: '#FFFFFF',
-        fontFamily: 'AveriaLibre-Bold',
-        marginHorizontal: 20
-    },
-    texto: {
-        fontSize: 16,
-        color: '#FFFFFF',
-        fontFamily: 'AveriaLibre-Regular',
-        marginHorizontal: 5
-    },
-    feedbackLegenda: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    legenda: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 8
-    }
-})
+  view: {
+    backgroundColor: '#372775',
+    flex: 1,
+    flexDirection: 'column',
+  },
+});
 
-export default Relatório
+export default Relatório;
