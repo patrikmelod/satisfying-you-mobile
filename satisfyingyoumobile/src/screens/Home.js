@@ -86,7 +86,6 @@ const Home = props => {
   let numColumns = 100;
 
   return (
-    <PaperProvider theme={theme}>
       <View style={estilos.view}>
 
         <TouchableOpacity style={estilos.searchBar}>
@@ -107,7 +106,6 @@ const Home = props => {
           NOVA PESQUISA
         </Button>
       </View>
-    </PaperProvider>
   );
 };
 

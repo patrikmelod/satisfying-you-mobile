@@ -9,22 +9,31 @@ const DrawerNavigator = createDrawerNavigator()
 
 const Drawer = (props) => {
     return (
-        <DrawerNavigator.Navigator 
-        screenOptions={{
-            drawerInactiveBackgroundColor: "#372775", 
-            drawerActiveBackgroundColor: "#9370DB", 
-            drawerActiveTintColor: "#FFFFFF", 
-            drawerInactiveTintColor: "#FFFFFF"
-        }}
-        drawerContent={(props) => <CustomDrawer {...props} />}>
-            <DrawerNavigator.Screen 
-            name="Pesquisas" 
-            component={Home} 
-            options={{
-                drawerLabelStyle: {
-                    fontFamily: 'AveriaLibre-Light', 
-                    fontSize: 20},
-                drawerIcon: config => <Icon name="inventory" size={25} color='#FFFFFF' />
+        <DrawerNavigator.Navigator
+            screenOptions={{
+                drawerInactiveBackgroundColor: "#372775",
+                drawerActiveBackgroundColor: "#9370DB",
+                drawerActiveTintColor: "#FFFFFF",
+                drawerInactiveTintColor: "#FFFFFF",
+                headerTintColor: '#FFFFFF',
+                headerTitleStyle: {
+                    fontFamily: 'AveriaLibre-Light',
+                    fontSize: 25
+                },
+                headerStyle: {
+                    backgroundColor: '#1F0954'
+                }
+            }}
+            drawerContent={(props) => <CustomDrawer {...props} />}>
+            <DrawerNavigator.Screen
+                name="Pesquisas"
+                component={Home}
+                options={{
+                    drawerLabelStyle: {
+                        fontFamily: 'AveriaLibre-Light',
+                        fontSize: 20
+                    },
+                    drawerIcon: config => <Icon name="inventory" size={25} color='#FFFFFF' />
                 }} />
         </DrawerNavigator.Navigator>
     )
@@ -51,7 +60,7 @@ const estilos = StyleSheet.create({
         fontSize: 20,
         color: '#FFFFFF',
         fontFamily: 'AveriaLibre-Light',
-        
+
     },
     titulo: {
         fontSize: 20,

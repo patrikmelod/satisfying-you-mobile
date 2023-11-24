@@ -19,9 +19,19 @@ const Stack = createStackNavigator()
 
 const App = () => {
   return (
-    <Provider store = {store}>
+    <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login" screenOptions={{ headerTintColor: '#FFFFFF', headerStyle: { backgroundColor: '#1F0954' } }}>
+        <Stack.Navigator initialRouteName="Login"
+          screenOptions={{
+            headerTintColor: '#FFFFFF',
+            headerStyle: {
+              backgroundColor: '#1F0954'
+            },
+            headerTitleStyle: {
+              fontFamily: 'AveriaLibre-Light',
+              fontSize: 25
+            }
+          }}>
           <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
           <Stack.Screen name="Nova Conta" component={NovaConta} />
           <Stack.Screen name="Recuperação de Senha" component={RecuperarSenha} />

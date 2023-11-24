@@ -2,6 +2,7 @@ import { View, StyleSheet, Image, Text } from 'react-native'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
+import { useSelector } from 'react-redux'
 
 const theme = {
     ...DefaultTheme,
@@ -13,10 +14,11 @@ const theme = {
 }
 
 const CustomDrawer = (props) => {
+    const email = useSelector((state) => state.login.email)
     return (
         <DrawerContentScrollView {...props} contentContainerStyle={estilos.view} >
             <View>
-                <DrawerItem label="usuario@dominio.com" labelStyle={estilos.titulo} />
+                <DrawerItem label={email} labelStyle={estilos.titulo} />
                 <DrawerItem label="__________________________" labelStyle={estilos.barra} />
                 <DrawerItemList {...props} />
             </View>
@@ -59,7 +61,7 @@ const estilos = StyleSheet.create({
 
     },
     titulo: {
-        fontSize: 20,
+        fontSize: 15,
         color: '#FFFFFF',
         fontFamily: 'AveriaLibre-Bold',
         marginTop: 5

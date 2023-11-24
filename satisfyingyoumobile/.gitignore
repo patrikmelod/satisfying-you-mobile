@@ -1,4 +1,6 @@
 # Xcode
+node_modules
+android
 !**/*.xcodeproj
 !**/*.pbxproj
 !**/*.xcworkspacedata

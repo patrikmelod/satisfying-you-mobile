@@ -4,6 +4,8 @@ import { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { signInWithEmailAndPassword } from '@firebase/auth'
 import { auth_mod } from '../firebase/config'
+import { useDispatch } from 'react-redux';
+import { reducerSetLogin } from '../../redux/loginSlice'
 
 const theme = {
     ...DefaultTheme,
@@ -15,6 +17,8 @@ const theme = {
 }
 
 const Login = (props) => {
+
+    const dispatch = useDispatch()
 
     const [txtEmail, setEmail] = useState('')
     const [txtSenha, setSenha] = useState('')
@@ -29,18 +33,21 @@ const Login = (props) => {
     }
 
     const goToHome = () => {
+        dispatch(reducerSetLogin({
+            email: txtEmail,
+        }))
         props.navigation.navigate("Drawer")
     }
 
     const checkEmailPassword = () => {
         signInWithEmailAndPassword(auth_mod, txtEmail, txtSenha)
-        .then((info) => {
-            setCheck(false)
-            goToHome()
-        })
-        .catch((error) => {
-            setCheck(true)
-        })
+            .then((info) => {
+                setCheck(false)
+                goToHome()
+            })
+            .catch((error) => {
+                setCheck(true)
+            })
     }
 
     return (
@@ -71,10 +78,10 @@ const Login = (props) => {
                                 secureTextEntry={true}
                             />
                             {emailPassword && (
-                            <Text style={estilos.textoErro}>
-                                Email e/ou senha inválidos
-                            </Text>
-                            )}  
+                                <Text style={estilos.textoErro}>
+                                    Email e/ou senha inválidos
+                                </Text>
+                            )}
                         </View>
                     </View>
 
@@ -84,7 +91,7 @@ const Login = (props) => {
                         </Button>
                     </View>
                 </View>
-                
+
 
                 <View style={estilos.bottom}>
                     <Button mode="contained" buttonColor='#419ED7' onPress={goToNovaConta} style={estilos.botao}>

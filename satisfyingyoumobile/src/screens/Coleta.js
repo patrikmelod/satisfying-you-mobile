@@ -4,6 +4,12 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useState } from 'react'
 import { TouchableOpacity } from 'react-native'
 import { useSelector } from 'react-redux'
+import { updateDoc, doc, collection } from '@firebase/firestore'
+import { initializeFirestore } from '@firebase/firestore'
+import { app } from '../firebase/config'
+import { useDispatch } from 'react-redux';
+import { reducerSetPesquisa } from '../../redux/pesquisaSlice';
+
 
 const theme = {
     ...DefaultTheme,
@@ -16,16 +22,87 @@ const theme = {
 
 const Coleta = (props) => {
 
-    const [feedback, setFeedback] = useState('')
+    const dispatch = useDispatch()
 
+    const idRed = useSelector((state) => state.pesquisa.id)
     const nomeRed = useSelector((state) => state.pesquisa.nome)
-    goToAgradecimento = () => {
-        props.navigation.navigate("Agradecimento")
-    }
+    const dataRed = useSelector((state) => state.pesquisa.data)
+    const imgRed = useSelector((state) => state.pesquisa.img)
+    let pessimoRed = useSelector((state) => state.pesquisa.pessimo)
+    let ruimRed = useSelector((state) => state.pesquisa.ruim)
+    let neutroRed = useSelector((state) => state.pesquisa.neutro)
+    let bomRed = useSelector((state) => state.pesquisa.bom)
+    let excelenteRed = useSelector((state) => state.pesquisa.excelente)
 
     var titulo = "O que você achou do " + nomeRed + "?"
 
-    return(
+    const db = initializeFirestore(app, { experimentalForceLongPolling: true })
+
+    const changePesquisa = (id) => {
+        const pesqRef = doc(db, "pesquisas", id)
+
+        updateDoc(pesqRef, {
+            nome: nomeRed,
+            data: dataRed,
+            img: imgRed,
+            pessimo: pessimoRed,
+            ruim: ruimRed,
+            neutro: neutroRed,
+            bom: bomRed,
+            excelente: excelenteRed
+        })
+    }
+
+    attRedux = () => {
+        dispatch(reducerSetPesquisa({
+            id: idRed,
+            nome: nomeRed,
+            data: dataRed,
+            img: imgRed,
+            pessimo: pessimoRed,
+            ruim: ruimRed,
+            neutro: neutroRed,
+            bom: bomRed,
+            excelente: excelenteRed
+        }))
+    }
+
+    pessimo = () => {
+        pessimoRed++
+        changePesquisa(idRed)
+        attRedux()
+        props.navigation.navigate("Agradecimento")
+    }
+
+    ruim = () => {
+        ruimRed++
+        changePesquisa(idRed)
+        attRedux()
+        props.navigation.navigate("Agradecimento")
+    }
+
+    neutro = () => {
+        neutroRed++
+        changePesquisa(idRed)
+        attRedux()
+        props.navigation.navigate("Agradecimento")
+    }
+
+    bom = () => {
+        bomRed++
+        changePesquisa(idRed)
+        attRedux()
+        props.navigation.navigate("Agradecimento")
+    }
+
+    excelente = () => {
+        excelenteRed++
+        changePesquisa(idRed)
+        attRedux()
+        props.navigation.navigate("Agradecimento")
+    }
+
+    return (
         <PaperProvider>
             <View style={estilos.view}>
                 <View>
@@ -34,37 +111,37 @@ const Coleta = (props) => {
 
                 <View style={estilos.conteudo}>
                     <View style={estilos.feedback} >
-                        <TouchableOpacity onPress={goToAgradecimento}>
-                            <Icon name="sentiment-very-dissatisfied" size={60} color='#D71616'/>
+                        <TouchableOpacity onPress={pessimo}>
+                            <Icon name="sentiment-very-dissatisfied" size={60} color='#D71616' />
                         </TouchableOpacity>
                         <Text style={estilos.texto}>Péssimo</Text>
                     </View>
 
 
-                    <View style={estilos.feedback} > 
-                        <TouchableOpacity onPress={goToAgradecimento}>
-                            <Icon name="sentiment-dissatisfied" size={60} color='#FF360A'/>
+                    <View style={estilos.feedback} >
+                        <TouchableOpacity onPress={ruim}>
+                            <Icon name="sentiment-dissatisfied" size={60} color='#FF360A' />
                         </TouchableOpacity>
                         <Text style={estilos.texto}>Ruim</Text>
                     </View>
 
                     <View style={estilos.feedback} >
-                        <TouchableOpacity onPress={goToAgradecimento}>
-                            <Icon name="sentiment-neutral" size={60} color='#FFC632'/>
+                        <TouchableOpacity onPress={neutro}>
+                            <Icon name="sentiment-neutral" size={60} color='#FFC632' />
                         </TouchableOpacity>
                         <Text style={estilos.texto}>Neutro</Text>
                     </View>
 
                     <View style={estilos.feedback} >
-                        <TouchableOpacity onPress={goToAgradecimento}>
-                            <Icon name="sentiment-satisfied" size={60} color='#37BD6D'/>
+                        <TouchableOpacity onPress={bom}>
+                            <Icon name="sentiment-satisfied" size={60} color='#37BD6D' />
                         </TouchableOpacity>
                         <Text style={estilos.texto}>Bom</Text>
                     </View>
 
                     <View style={estilos.feedback} >
-                        <TouchableOpacity onPress={goToAgradecimento}>
-                            <Icon name="sentiment-very-satisfied" size={60} color='#25BC22'/>
+                        <TouchableOpacity onPress={excelente}>
+                            <Icon name="sentiment-very-satisfied" size={60} color='#25BC22' />
                         </TouchableOpacity>
                         <Text style={estilos.texto}>Excelente</Text>
                     </View>

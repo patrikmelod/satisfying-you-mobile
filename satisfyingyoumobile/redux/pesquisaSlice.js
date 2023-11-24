@@ -5,11 +5,11 @@ const initialValues = {
     nome: null,
     data: null,
     img: null,
-    pessimo: null,
-    ruim: null,
-    neutro: null,
-    bom: null,
-    excelente: null
+    pessimo: 0,
+    ruim: 0,
+    neutro: 0,
+    bom: 0,
+    excelente: 0
 }
 
 export const pesquisaSlice = createSlice({

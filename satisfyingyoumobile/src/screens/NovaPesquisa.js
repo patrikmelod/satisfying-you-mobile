@@ -30,7 +30,12 @@ const NovaPesquisa = (props) => {
     const docPesquisa = {
       nome: nome,
       data: data,
-      img: img
+      img: img,
+      pessimo: 0,
+      ruim: 0,
+      neutro: 0,
+      bom: 0,
+      excelente: 0
     }
 
     if (nome == "") {
