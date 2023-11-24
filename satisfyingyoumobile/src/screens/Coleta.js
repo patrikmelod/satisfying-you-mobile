@@ -10,17 +10,17 @@ import { app } from '../firebase/config'
 import { useDispatch } from 'react-redux';
 import { reducerSetPesquisa } from '../../redux/pesquisaSlice';
 
-
 const theme = {
     ...DefaultTheme,
     colors: {
         ...DefaultTheme.colors,
         primary: 'blue',
-        secondary: 'green'
-    }
-}
+        secondary: 'green',
+    },
+};
 
-const Coleta = (props) => {
+const Coleta = props => {
+    const [feedback, setFeedback] = useState('');
 
     const dispatch = useDispatch()
 
@@ -34,8 +34,8 @@ const Coleta = (props) => {
     let bomRed = useSelector((state) => state.pesquisa.bom)
     let excelenteRed = useSelector((state) => state.pesquisa.excelente)
 
-    var titulo = "O que você achou do " + nomeRed + "?"
 
+    var titulo = 'O que você achou do ' + nomeRed + '?';
     const db = initializeFirestore(app, { experimentalForceLongPolling: true })
 
     const changePesquisa = (id) => {
@@ -117,7 +117,6 @@ const Coleta = (props) => {
                         <Text style={estilos.texto}>Péssimo</Text>
                     </View>
 
-
                     <View style={estilos.feedback} >
                         <TouchableOpacity onPress={ruim}>
                             <Icon name="sentiment-dissatisfied" size={60} color='#FF360A' />
@@ -145,9 +144,9 @@ const Coleta = (props) => {
                         </TouchableOpacity>
                         <Text style={estilos.texto}>Excelente</Text>
                     </View>
-                </View>
-            </View>
-        </PaperProvider>
+                </View >
+            </View >
+        </PaperProvider >
     )
 }
 
@@ -158,7 +157,7 @@ const estilos = StyleSheet.create({
         backgroundColor: '#372775',
         flex: 1,
         flexDirection: 'column',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     titulo: {
         fontSize: 30,
@@ -176,15 +175,15 @@ const estilos = StyleSheet.create({
         display: 'grid',
         gap: 10,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     feedback: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        color: 'white'
-    }
-})
+        color: 'white',
+    },
+});
 
-export default Coleta
+export default Coleta;

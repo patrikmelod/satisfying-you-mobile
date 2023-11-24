@@ -1,22 +1,32 @@
-import React, { useState } from 'react';
-import { View, Text, Modal,StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper'
+import React, {useState} from 'react';
+import {View, Text, Modal, StyleSheet} from 'react-native';
+import {Button} from 'react-native-paper';
 
-const PopUp = ({ visible, onClose, onConfirm }) => {
- 
+const PopUp = ({visible, onClose, onConfirm}) => {
   return (
-    <Modal transparent={true}
-    animationType="fade"
-    visible={visible}
-    onRequestClose={onClose}>
+    <Modal
+      transparent={true}
+      animationType="fade"
+      visible={visible}
+      onRequestClose={onClose}>
       <View style={estilos.backgroundView}>
         <View style={estilos.view}>
-          <Text style={estilos.texto}>Tem certeza de apagar essa pesquisa?</Text>
+          <Text style={estilos.texto}>
+            Tem certeza de apagar essa pesquisa?
+          </Text>
           <View style={estilos.viewButtons}>
-            <Button mode="contained" buttonColor='#FF8383'style={estilos.button} onPress={onConfirm}>
+            <Button
+              mode="contained"
+              buttonColor="#FF8383"
+              style={estilos.button}
+              onPress={onConfirm}>
               SIM
             </Button>
-            <Button mode="contained" buttonColor='#3F92C5'style={estilos.button} onPress={onClose}>
+            <Button
+              mode="contained"
+              buttonColor="#3F92C5"
+              style={estilos.button}
+              onPress={onClose}>
               CANCELAR
             </Button>
           </View>
@@ -24,16 +34,15 @@ const PopUp = ({ visible, onClose, onConfirm }) => {
       </View>
     </Modal>
   );
-  
-}
- 
+};
+
 const estilos = StyleSheet.create({
   backgroundView: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  }, 
+  },
 
   view: {
     height: 150,
@@ -42,9 +51,9 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2B1F5C',
-    
+
     justifyContent: 'space-evenly',
-  }, 
+  },
   texto: {
     fontSize: 20,
     color: '#FFF',
@@ -58,14 +67,12 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between',
     textAlign: 'center',
   },
-  button:{
+  button: {
     height: 50,
     width: 125,
-    borderRadius:0,
+    borderRadius: 0,
     justifyContent: 'center',
     alignItems: 'center',
-  }
-  
-}); 
-  export default PopUp;
-
+  },
+});
+export default PopUp;
