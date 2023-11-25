@@ -5,8 +5,11 @@ import { collection, initializeFirestore, addDoc } from 'firebase/firestore'
 import { app, storage } from '../firebase/config'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import { uploadBytes, ref, getDownloadURL } from 'firebase/storage'
+import { useDispatch } from 'react-redux';
 
 const NovaPesquisa = (props) => {
+
+  const dispatch = useDispatch()
 
   const [pesquisa, setPesquisa] = useState([]);
   const [nome, setNome] = useState('')
@@ -24,6 +27,9 @@ const NovaPesquisa = (props) => {
       .then((result) => {
         setImgUri(result.assets[0].uri)
         setImg(result.assets[0])
+        dispatch(reducerSetPesquisa({
+          imgRef: img
+        }))
       })
   }
 
@@ -32,6 +38,9 @@ const NovaPesquisa = (props) => {
       .then((result) => {
         setImgUri(result.assets[0].uri)
         setImg(result.assets[0])
+        dispatch(reducerSetPesquisa({
+          imgRef: img
+        }))
       })
   }
 

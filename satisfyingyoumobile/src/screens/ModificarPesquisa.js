@@ -17,6 +17,7 @@ const ModificarPesquisa = (props) => {
   const nomeRed = useSelector((state) => state.pesquisa.nome)
   const dataRed = useSelector((state) => state.pesquisa.data)
   const imgRed = useSelector((state) => state.pesquisa.img)
+  const imageRefRed = useSelector((state) => state.pesquisa.imgRef)
 
   const [txtNome, setNome] = useState(nomeRed)
   const [data, setData] = useState(dataRed)
@@ -28,6 +29,29 @@ const ModificarPesquisa = (props) => {
   const [popupVisible, setPopupVisible] = useState(false);
 
   const db = initializeFirestore(app, { experimentalForceLongPolling: true })
+
+  useEffect(async () => {
+    const imageRefAnt = ref(storage, nomeRed + '.jpeg')
+    const imageRef = ref(storage, idRed + '.jpeg')
+    const file = await fetch(imageRefRed.uri)
+    const blob = await file.blob()
+
+    deleteObject(imageRefAnt).then(() =>
+      uploadBytes(imageRefRed, blob, { contentType: 'image/jpeg' })
+        .then(() =>
+          getDownloadURL(imageRef)
+            .then((url) => {
+              const pesqRef = doc(db, "pesquisas", idRed)
+
+              updateDoc(pesqRef, {
+                nome: '' + txtNome,
+                data: '' + data,
+                img: '' + url
+              })
+            })
+        )
+    ).catch(() => console.log("Nome já está renomeado com ID"))
+  }, [])
 
   const capturarImg = () => {
     launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
@@ -63,12 +87,11 @@ const ModificarPesquisa = (props) => {
           img: '' + imgRed
         })
       } else {
-        const imageRefAnt = ref(storage, nomeRed + '.jpeg')
         const imageRef = ref(storage, idRed + '.jpeg')
         const file = await fetch(img.uri)
         const blob = await file.blob()
 
-        deleteObject(imageRefAnt).then(() =>
+        deleteObject(imageRef).then(() =>
           uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
             .then(() =>
               getDownloadURL(imageRef)
