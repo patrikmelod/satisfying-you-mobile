@@ -90,7 +90,8 @@ const ModificarPesquisa = (props) => {
   }
 
   const handleConfirm = () => {
-    deleteDoc(doc(db, "pesquisas", idRed))
+    const imageRef = ref(storage, idRed + '.jpeg')
+    deleteObject(imageRef).then(() => deleteDoc(doc(db, "pesquisas", idRed)))
     setPopupVisible(false);
     props.navigation.goBack()
     props.navigation.goBack()
