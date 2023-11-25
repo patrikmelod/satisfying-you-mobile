@@ -1,13 +1,12 @@
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import Home from "./Home";
-import Login from "./Login";
 import CustomDrawer from "../components/CustomDrawer";
-import { View, StyleSheet, Image, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const DrawerNavigator = createDrawerNavigator()
 
-const Drawer = (props) => {
+const Drawer = () => {
     return (
         <DrawerNavigator.Navigator
             screenOptions={{

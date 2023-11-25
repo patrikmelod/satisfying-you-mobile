@@ -1,11 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { View, StyleSheet, TextInput, Text, FlatList, ScrollView } from 'react-native';
+import { View, StyleSheet, TextInput, FlatList, ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native';
-import {
-  PaperProvider,
-  MD3LightTheme as DefaultTheme,
-  Button,
-} from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Card from '../components/Card'
 import { useEffect, useState } from 'react';
@@ -14,26 +10,11 @@ import { app } from '../firebase/config';
 import { useDispatch } from 'react-redux';
 import { reducerSetPesquisa } from '../../redux/pesquisaSlice';
 
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'blue',
-    secondary: 'green',
-  },
-};
-
 const Home = props => {
-
-  const [id, setId] = useState('')
-  const [nome, setNome] = useState('')
-  const [data, setData] = useState('')
-  const [img, setImg] = useState('')
 
   const dispatch = useDispatch()
 
   const [listPesquisas, setListaPesquisa] = useState()
-
   const db = initializeFirestore(app, { experimentalForceLongPolling: true })
   const pesquisaCollection = collection(db, "pesquisas")
 
@@ -76,8 +57,7 @@ const Home = props => {
     return (
       <Card onPress={() => goToAcoesPesquisa(item)}
         id={item.id}
-        iconName={'devices'}
-        iconColor={'brown'}
+        url={item.img}
         title={item.nome}
         date={item.data} />
     )
@@ -86,26 +66,23 @@ const Home = props => {
   let numColumns = 100;
 
   return (
-      <View style={estilos.view}>
-
-        <TouchableOpacity style={estilos.searchBar}>
-          <Icon name="search" size={36} />
-          <TextInput style={estilos.texto} placeholder="Insira o termo de busca..." />
-        </TouchableOpacity>
-
-        <View style={estilos.main}>
-          <ScrollView horizontal={true}>
-            <FlatList data={listPesquisas} renderItem={itemPesquisa} keyExtractor={pesquisa => pesquisa.id} style={estilos.main} numColumns={numColumns} />
-          </ScrollView>
-        </View>
-
-        <Button
-          mode="contained"
-          buttonColor="#37BD6D"
-          onPress={goToPesquisa} style={estilos.botao}>
-          NOVA PESQUISA
-        </Button>
+    <View style={estilos.view}>
+      <TouchableOpacity style={estilos.searchBar}>
+        <Icon name="search" size={36} />
+        <TextInput style={estilos.texto} placeholder="Insira o termo de busca..." />
+      </TouchableOpacity>
+      <View style={estilos.main}>
+        <ScrollView horizontal={true}>
+          <FlatList data={listPesquisas} renderItem={itemPesquisa} keyExtractor={pesquisa => pesquisa.id} style={estilos.main} numColumns={numColumns} />
+        </ScrollView>
       </View>
+      <Button
+        mode="contained"
+        buttonColor="#37BD6D"
+        onPress={goToPesquisa} style={estilos.botao}>
+        NOVA PESQUISA
+      </Button>
+    </View>
   );
 };
 
@@ -142,7 +119,6 @@ const estilos = StyleSheet.create({
     height: 200,
     width: 100,
   },
-
   searchBar: {
     backgroundColor: 'white',
     height: 36,
@@ -152,7 +128,6 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     textAlign: 'center'
   },
-
   botao: {
     borderRadius: 0,
   }

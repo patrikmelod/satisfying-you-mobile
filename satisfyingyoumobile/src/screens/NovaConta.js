@@ -1,17 +1,8 @@
 import { View, StyleSheet, Text } from 'react-native'
-import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
+import { PaperProvider, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth_mod } from '../firebase/config'
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'blue',
-    secondary: 'green'
-  }
-}
 
 const NovaConta = (props) => {
 
@@ -26,9 +17,9 @@ const NovaConta = (props) => {
     } else {
       createUserWithEmailAndPassword(auth_mod, txtEmail, txtSenha)
         .then((userCredential) => {
-            setCheckText(false)
-            props.navigation.goBack()
-          })
+          setCheckText(false)
+          props.navigation.goBack()
+        })
         .catch((error) => {
           setCheckText(true)
         })
@@ -38,7 +29,6 @@ const NovaConta = (props) => {
   return (
     <PaperProvider>
       <View style={estilos.view}>
-        
         <View>
           <View style={estilos.top}>
             <View>
@@ -50,7 +40,6 @@ const NovaConta = (props) => {
                 placeholder='Digite seu email'
               />
             </View>
-
             <View>
               <Text style={estilos.texto}>Senha</Text>
               <TextInput
@@ -61,7 +50,6 @@ const NovaConta = (props) => {
                 secureTextEntry={true}
               />
             </View>
-
             <View>
               <Text style={estilos.texto}>Repetir Senha</Text>
               <TextInput
@@ -72,20 +60,15 @@ const NovaConta = (props) => {
                 secureTextEntry={true}
               />
             </View>
-            
-
           </View>
-
           <View style={estilos.middle}>
             {checkText && (
-                <Text style={estilos.textoErro}>
-                  O campo repetir senha difere da senha
-                </Text>
-              )}
+              <Text style={estilos.textoErro}>
+                O campo repetir senha difere da senha
+              </Text>
+            )}
           </View>
         </View>
-
-
         <View style={estilos.bottom}>
           <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
             CADASTRAR
@@ -117,25 +100,22 @@ const estilos = StyleSheet.create({
   },
   top: {
     paddingTop: 100,
-    //flex: 0.6,
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 15
   },
   middle: {
     paddingBottom: 200,
-    //flex: 0.1,
     flexDirection: 'column',
     justifyContent: 'flex-start'
   },
   bottom: {
-    //flex: 0.3,
     flexDirection: 'column',
     justifyContent: 'space-between',
   },
   botao: {
     borderRadius: 0,
-  } 
+  }
 })
 
 export default NovaConta

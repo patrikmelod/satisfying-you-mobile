@@ -1,20 +1,11 @@
 import { View, StyleSheet, Text } from 'react-native'
-import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
+import { PaperProvider, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { signInWithEmailAndPassword } from '@firebase/auth'
 import { auth_mod } from '../firebase/config'
 import { useDispatch } from 'react-redux';
 import { reducerSetLogin } from '../../redux/loginSlice'
-
-const theme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: 'blue',
-        secondary: 'green'
-    }
-}
 
 const Login = (props) => {
 
@@ -26,10 +17,14 @@ const Login = (props) => {
 
     const goToNovaConta = () => {
         props.navigation.navigate("Nova Conta")
+        setEmail('')
+        setSenha('')
     }
 
     const goToRecuperarSenha = () => {
         props.navigation.navigate("Recuperação de Senha")
+        setEmail('')
+        setSenha('')
     }
 
     const goToHome = () => {
@@ -37,6 +32,8 @@ const Login = (props) => {
             email: txtEmail,
         }))
         props.navigation.navigate("Drawer")
+        setEmail('')
+        setSenha('')
     }
 
     const checkEmailPassword = () => {
@@ -57,7 +54,6 @@ const Login = (props) => {
                     <Text style={estilos.titulo}>Satisfying.you</Text>
                     <Icon name="mood" size={60} color='#FFFFFF' />
                 </View>
-
                 <View style={estilos.middle}>
                     <View style={estilos.middleTop}>
                         <View>
@@ -68,7 +64,6 @@ const Login = (props) => {
                                 placeholder='Digite seu email'
                             />
                         </View>
-
                         <View>
                             <Text style={estilos.texto}>Senha</Text>
                             <TextInput
@@ -84,15 +79,12 @@ const Login = (props) => {
                             )}
                         </View>
                     </View>
-
                     <View style={estilos.middleBottom}>
                         <Button mode="contained" buttonColor='#37BD6D' onPress={checkEmailPassword} style={estilos.botao}>
                             Entrar
                         </Button>
                     </View>
                 </View>
-
-
                 <View style={estilos.bottom}>
                     <Button mode="contained" buttonColor='#419ED7' onPress={goToNovaConta} style={estilos.botao}>
                         Criar minha conta
@@ -133,14 +125,12 @@ const estilos = StyleSheet.create({
     top: {
         marginTop: 30,
         paddingHorizontal: 10,
-        //flex: 0.30,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
     middleTop: {
         paddingTop: 60,
-        //flex: 0.30,
         flexDirection: 'column',
         justifyContent: 'space-between',
         gap: 15
@@ -148,14 +138,12 @@ const estilos = StyleSheet.create({
     middleBottom: {
         paddingTop: 10,
         paddingBottom: 100,
-        //flex: 0.20,
         flexDirection: 'column',
         justifyContent: 'space-between'
     },
     bottom: {
         paddingVertical: 20,
         gap: 20,
-        //flex: 0.20,
         flexDirection: 'column',
         justifyContent: 'space-between',
     },

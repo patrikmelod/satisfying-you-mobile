@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {View, Text, Modal, StyleSheet} from 'react-native';
-import {Button} from 'react-native-paper';
+import React from 'react';
+import { View, Text, Modal, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 
-const PopUp = ({visible, onClose, onConfirm}) => {
+const PopUp = ({ visible, onClose, onConfirm }) => {
   return (
     <Modal
       transparent={true}
@@ -43,7 +43,6 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-
   view: {
     height: 150,
     width: 300,
@@ -51,7 +50,6 @@ const estilos = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#2B1F5C',
-
     justifyContent: 'space-evenly',
   },
   texto: {
@@ -75,4 +73,5 @@ const estilos = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
 export default PopUp;

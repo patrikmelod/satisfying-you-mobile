@@ -1,5 +1,5 @@
 import { View, StyleSheet, Text } from 'react-native';
-import { PaperProvider, MD3LightTheme as DefaultTheme } from 'react-native-paper';
+import { PaperProvider } from 'react-native-paper';
 import { PieChart } from 'react-native-svg-charts';
 import { useSelector } from 'react-redux'
 

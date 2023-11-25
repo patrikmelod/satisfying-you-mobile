@@ -1,22 +1,15 @@
-import { View, StyleSheet, Text, TextBase, TouchableOpacity } from 'react-native'
-import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
-import { useState, useEffect } from 'react'
+import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from 'react-native'
+import { PaperProvider, Button } from 'react-native-paper'
+import { useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import PopUp from '../components/PopUp'
-import { updateDoc, doc, collection } from '@firebase/firestore'
+import { updateDoc, doc } from '@firebase/firestore'
 import { initializeFirestore } from '@firebase/firestore'
-import { app } from '../firebase/config'
+import { app, storage } from '../firebase/config'
 import { useSelector } from 'react-redux'
 import { deleteDoc } from 'firebase/firestore'
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'blue',
-    secondary: 'green'
-  }
-}
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import { uploadBytes, ref, getDownloadURL, deleteObject } from 'firebase/storage'
 
 const ModificarPesquisa = (props) => {
 
@@ -27,7 +20,8 @@ const ModificarPesquisa = (props) => {
 
   const [txtNome, setNome] = useState(nomeRed)
   const [data, setData] = useState(dataRed)
-  const [img, setImg] = useState(imgRed)
+  const [img, setImg] = useState()
+  const [imgUri, setImgUri] = useState(imgRed)
 
   const [checkNome, setCheckNome] = useState(false)
   const [checkData, setCheckData] = useState(false)
@@ -35,17 +29,23 @@ const ModificarPesquisa = (props) => {
 
   const db = initializeFirestore(app, { experimentalForceLongPolling: true })
 
-  const changePesquisa = (id) => {
-    const pesqRef = doc(db, "pesquisas", id)
-
-    updateDoc(pesqRef, {
-      nome: '' + txtNome,
-      data: '' + data,
-      img: '' + img
-    })
+  const capturarImg = () => {
+    launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
+      .then((result) => {
+        setImgUri(result.assets[0].uri)
+        setImg(result.assets[0])
+      })
   }
 
-  const cadastrar = () => {
+  const selecionarImg = () => {
+    launchImageLibrary()
+      .then((result) => {
+        setImgUri(result.assets[0].uri)
+        setImg(result.assets[0])
+      })
+  }
+
+  const cadastrar = async () => {
     if (txtNome == "") {
       setCheckNome(true)
     } else if (data == "") {
@@ -53,7 +53,38 @@ const ModificarPesquisa = (props) => {
     } else {
       setCheckNome(false)
       setCheckData(false)
-      changePesquisa(idRed)
+
+      if (img == null) {
+        const pesqRef = doc(db, "pesquisas", idRed)
+
+        updateDoc(pesqRef, {
+          nome: '' + txtNome,
+          data: '' + data,
+          img: '' + imgRed
+        })
+      } else {
+        const imageRefAnt = ref(storage, nomeRed + '.jpeg')
+        const imageRef = ref(storage, idRed + '.jpeg')
+        const file = await fetch(img.uri)
+        const blob = await file.blob()
+
+        deleteObject(imageRefAnt).then(() =>
+          uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
+            .then(() =>
+              getDownloadURL(imageRef)
+                .then((url) => {
+                  const pesqRef = doc(db, "pesquisas", idRed)
+
+                  updateDoc(pesqRef, {
+                    nome: '' + txtNome,
+                    data: '' + data,
+                    img: '' + url
+                  })
+                })
+            )
+        ).catch(() => console.log("Nome já está renomeado com ID"))
+      }
+      props.navigation.goBack()
       props.navigation.goBack()
     }
   }
@@ -61,7 +92,8 @@ const ModificarPesquisa = (props) => {
   const handleConfirm = () => {
     deleteDoc(doc(db, "pesquisas", idRed))
     setPopupVisible(false);
-    props.navigation.navigate('Home')
+    props.navigation.goBack()
+    props.navigation.goBack()
   };
 
   const handleClose = () => {
@@ -84,7 +116,7 @@ const ModificarPesquisa = (props) => {
           <View style={estilos.middleData}>
             <Text style={estilos.texto}>Data</Text>
             <View style={estilos.txtInputData}>
-              <Icon name="event" size={27} color='#878787' style={estilos.iconData} />
+              <Icon name="event" size={27} color='#878787' />
               <TextInput
                 style={estilos.txtInputDdata}
                 value={data}
@@ -93,22 +125,26 @@ const ModificarPesquisa = (props) => {
             </View>
             {checkData && <Text style={estilos.warning}>Preencha a data</Text>}
           </View>
-
           <View style={estilos.middleImage}>
             <Text style={estilos.texto}>Imagem</Text>
-            <TextInput
-              style={estilos.insertImg}
-              value={img}
-              onChangeText={setImg}
-            />
+            {
+              imgUri ?
+                <Image source={{ uri: imgUri }} style={{ width: 130, height: 130 }} />
+                :
+                null
+            }
+            <Button mode="contained" buttonColor='#1F0954' onPress={capturarImg} style={estilos.botaoImg}>
+              Capturar imagem
+            </Button>
+            <Button mode="contained" buttonColor='#1F0954' onPress={selecionarImg} style={estilos.botaoImg}>
+              Selecionar imagem
+            </Button>
           </View>
         </View>
-
         <View style={estilos.bottom}>
           <Button mode="contained" fontSize='28' buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
             SALVAR
           </Button>
-
           <TouchableOpacity style={estilos.trash} onPress={() => setPopupVisible(true)}>
             <Icon name="delete" size={27} color='#FFFFFF' />
             <Text style={estilos.trashText}>Apagar</Text>
@@ -118,9 +154,7 @@ const ModificarPesquisa = (props) => {
           onConfirm={handleConfirm}
           onClose={handleClose}></PopUp>
       </View>
-
-
-    </PaperProvider>
+    </PaperProvider >
   )
 }
 
@@ -138,7 +172,7 @@ const estilos = StyleSheet.create({
     fontFamily: 'AveriaLibre-Bold'
   },
   top: {
-    paddingTop: 80,
+    paddingTop: 50,
     flex: 0.8,
     flexDirection: 'column',
   },
@@ -155,27 +189,27 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center'
   },
-  iconData: {
-    //paddingTop: 20,
-    //paddingLeft: 10,
-    //justifyContent: 'center',
-    //alignItems: 'center'
-  },
   txtInputDdata: {
     flex: 1,
     fontSize: 28,
     backgroundColor: '#fff'
   },
-
   middleImage: {
-    paddingTop: 60,
-    flex: 0.30,
+    paddingTop: 30,
+    flex: 1,
+    gap: 10,
     flexDirection: 'column',
-    width: '50%',
-    height: 300,
+  },
+  botoes: {
+    flex: 0.30,
+    width: 100,
+    gap: 20,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    textAlign: 'space-between',
   },
   bottom: {
-    flex: 0.3,
+    flex: 0.1,
     flexDirection: 'row',
     justifyContent: 'flex-end'
   },
@@ -185,10 +219,8 @@ const estilos = StyleSheet.create({
   },
   txtInput: {
     fontSize: 28,
-    color: '#3F92C5',
     backgroundColor: '#fff'
   },
-
   botao: {
     width: '82%',
     height: 50,
@@ -196,14 +228,18 @@ const estilos = StyleSheet.create({
     textAlign: 'center',
     justifyContent: 'center'
   },
-
+  botaoImg: {
+    height: 40,
+    borderRadius: 0,
+    textAlign: 'center',
+    justifyContent: 'center'
+  },
   trash: {
     width: '18%',
     height: 50,
     flexDirection: 'column',
     justifyContent: 'space-around',
     alignItems: 'center',
-
   },
   trashText: {
     color: 'white',
@@ -212,7 +248,6 @@ const estilos = StyleSheet.create({
     height: 90,
     backgroundColor: '#fff'
   },
-
   modalPopUp: {
     justifyContent: 'center',
     alignItems: 'center,',
@@ -220,8 +255,6 @@ const estilos = StyleSheet.create({
     width: 70,
     height: 70,
   },
-
-
 })
 
 export default ModificarPesquisa

@@ -1,63 +1,83 @@
-import { View, StyleSheet, Text, TextBase } from 'react-native'
-import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
+import { View, StyleSheet, Text, Image } from 'react-native'
+import { PaperProvider, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
 import { collection, initializeFirestore, addDoc } from 'firebase/firestore'
-import { app } from '../firebase/config'
-import { Card } from '../components/Card'
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'blue',
-    secondary: 'green'
-  }
-}
+import { app, storage } from '../firebase/config'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import { uploadBytes, ref, getDownloadURL } from 'firebase/storage'
 
 const NovaPesquisa = (props) => {
 
   const [pesquisa, setPesquisa] = useState([]);
   const [nome, setNome] = useState('')
   const [data, setData] = useState('')
-  const [img, setImg] = useState('')
+  const [img, setImg] = useState()
+  const [imgUri, setImgUri] = useState('')
   const [checkNome, setCheckNome] = useState(false)
   const [checkData, setCheckData] = useState(false)
 
-  const db = initializeFirestore(app, {experimentalForceLongPolling: true})
+  const db = initializeFirestore(app, { experimentalForceLongPolling: true })
   const pesquisaCollection = collection(db, "pesquisas")
 
-  const cadastrar = () => {
-    const docPesquisa = {
-      nome: nome,
-      data: data,
-      img: img,
-      pessimo: 0,
-      ruim: 0,
-      neutro: 0,
-      bom: 0,
-      excelente: 0
-    }
+  const capturarImg = () => {
+    launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
+      .then((result) => {
+        setImgUri(result.assets[0].uri)
+        setImg(result.assets[0])
+      })
+  }
 
+  const selecionarImg = () => {
+    launchImageLibrary()
+      .then((result) => {
+        setImgUri(result.assets[0].uri)
+        setImg(result.assets[0])
+      })
+  }
+
+  const cadastrar = async () => {
     if (nome == "") {
       setCheckNome(true)
     } else if (data == "") {
-      setCheckData(true) 
+      setCheckData(true)
     } else {
-      addDoc(pesquisaCollection, docPesquisa)
-      .then((docRef) => {
-        setPesquisa([...pesquisa, { nome, data, img }]);
-        setNome('');
-        setData('');
-        setImg('');
-        setCheckNome(false)
-        setCheckData(false)   
-        props.navigation.goBack()
-      })
-      .catch((error) => {
-      })
+      const imageRef = ref(storage, nome + '.jpeg')
+      const file = await fetch(img.uri)
+      const blob = await file.blob()
+      uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
+        .then(() =>
+          getDownloadURL(imageRef)
+            .then((url) => {
+
+              const docPesquisa = {
+                nome: nome,
+                data: data,
+                img: url,
+                pessimo: 0,
+                ruim: 0,
+                neutro: 0,
+                bom: 0,
+                excelente: 0
+              }
+
+              addDoc(pesquisaCollection, docPesquisa)
+                .then((docRef) => {
+                  setPesquisa([...pesquisa, { nome, data, img }]);
+                  setNome('');
+                  setData('');
+                  setImg('');
+                  setCheckNome(false)
+                  setCheckData(false)
+                  props.navigation.goBack()
+                })
+                .catch((error) => {
+                })
+            })
+        )
+
     }
   }
-  
+
   return (
     <PaperProvider>
       <View style={estilos.view}>
@@ -69,43 +89,39 @@ const NovaPesquisa = (props) => {
               value={nome}
               onChangeText={setNome}
             />
-           {checkNome &&   <Text style={estilos.warning}>Preencha o nome</Text>}
-
+            {checkNome && <Text style={estilos.warning}>Preencha o nome</Text>}
           </View>
           <View style={estilos.middleData}>
             <Text style={estilos.texto}>Data</Text>
-            <TextInput  
+            <TextInput
               style={estilos.txtInput}
               value={data}
               onChangeText={setData}
             />
-           {checkNome &&   <Text style={estilos.warning}>Preencha a data</Text>}
-
+            {checkData && <Text style={estilos.warning}>Preencha a data</Text>}
           </View>
-
           <View style={estilos.middleImage}>
             <Text style={estilos.texto}>Imagem</Text>
-            <TextInput  
-              style={estilos.txtInput}
-              value={img}
-              onChangeText={setData}
-            />
-          
-
+            {
+              imgUri ?
+                <Image source={{ uri: imgUri }} style={{ width: 130, height: 130 }} />
+                :
+                null
+            }
+            <Button mode="contained" buttonColor='#1F0954' onPress={capturarImg} style={estilos.botaoImg}>
+              Capturar imagem
+            </Button>
+            <Button mode="contained" buttonColor='#1F0954' onPress={selecionarImg} style={estilos.botaoImg}>
+              Selecionar imagem
+            </Button>
           </View>
-         
         </View>
-
-       
-      <View style={estilos.bottom}>
-       
+        <View style={estilos.bottom}>
           <Button mode="contained" buttonColor='#37BD6D' onPress={cadastrar} style={estilos.botao}>
             CADASTRAR
           </Button>
         </View>
-       
-      
-    </View>
+      </View>
     </PaperProvider>
   )
 }
@@ -123,6 +139,11 @@ const estilos = StyleSheet.create({
     color: '#FFF',
     fontFamily: 'AveriaLibre-Bold'
   },
+  textoImg: {
+    fontSize: 15,
+    color: '#FFF',
+    fontFamily: 'AveriaLibre-Bold',
+  },
   top: {
     paddingTop: 80,
     flex: 0.6,
@@ -133,21 +154,27 @@ const estilos = StyleSheet.create({
     flex: 0.30,
     flexDirection: 'column',
     justifyContent: 'space-between'
-},
-middleImage: {
-  paddingTop: 60,
-  flex: 0.30,
-  flexDirection: 'column',
-  width: '50%',
-  height: 300,
-},
+  },
+  middleImage: {
+    paddingTop: 70,
+    flex: 1,
+    gap: 10,
+    flexDirection: 'column',
+  },
+  middleImageBot: {
+    backgroundColor: '#FFFFF',
+    flex: 1,
+    paddingTop: 80,
+    flexDirection: 'row',
+    gap: 70
+  },
   bottom: {
-    flex: 0.3,
+    flex: 0.10,
     flexDirection: 'column',
   },
   warning: {
-   fontSize: 18,
-   color: "#FD7979",
+    fontSize: 18,
+    color: "#FD7979",
   },
   txtInput: {
     fontSize: 28,
@@ -156,6 +183,12 @@ middleImage: {
   },
   botao: {
     borderRadius: 0,
+  },
+  botaoImg: {
+    height: 40,
+    borderRadius: 0,
+    textAlign: 'center',
+    justifyContent: 'center'
   }
 })
 

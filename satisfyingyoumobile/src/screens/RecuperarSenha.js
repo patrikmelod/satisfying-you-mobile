@@ -1,22 +1,8 @@
-import {View, StyleSheet, Text} from 'react-native';
-import {
-  PaperProvider,
-  MD3LightTheme as DefaultTheme,
-  TextInput,
-  Button,
-} from 'react-native-paper';
-import {useState} from 'react';
-import {sendPasswordResetEmail} from '@firebase/auth';
-import {auth_mod} from '../firebase/config';
-
-const theme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    primary: 'blue',
-    secondary: 'green',
-  },
-};
+import { View, StyleSheet, Text } from 'react-native';
+import { PaperProvider, TextInput, Button } from 'react-native-paper';
+import { useState } from 'react';
+import { sendPasswordResetEmail } from '@firebase/auth';
+import { auth_mod } from '../firebase/config';
 
 const RecuperarSenha = props => {
   const [txtEmail, setEmail] = useState('');
@@ -46,12 +32,10 @@ const RecuperarSenha = props => {
               placeholder="Digite seu email"
             />
           </View>
-
           {checkEmail && (
             <Text style={estilos.textoErro}>E-mail parece ser inválido</Text>
           )}
         </View>
-
         <View style={estilos.bottom}>
           <Button
             mode="contained"

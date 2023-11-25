@@ -1,17 +1,7 @@
-import { View, StyleSheet, Image, Text } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { DrawerContentScrollView, DrawerItem, DrawerItemList } from '@react-navigation/drawer'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import { PaperProvider, MD3LightTheme as DefaultTheme, TextInput, Button } from 'react-native-paper'
 import { useSelector } from 'react-redux'
-
-const theme = {
-    ...DefaultTheme,
-    colors: {
-        ...DefaultTheme.colors,
-        primary: 'blue',
-        secondary: 'green'
-    }
-}
 
 const CustomDrawer = (props) => {
     const email = useSelector((state) => state.login.email)
@@ -58,7 +48,6 @@ const estilos = StyleSheet.create({
         fontSize: 20,
         color: '#FFFFFF',
         fontFamily: 'AveriaLibre-Light',
-
     },
     titulo: {
         fontSize: 15,
