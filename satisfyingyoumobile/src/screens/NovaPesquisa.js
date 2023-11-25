@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, Image } from 'react-native'
+import { View, StyleSheet, Text, Image, KeyboardAvoidingView } from 'react-native'
 import { PaperProvider, TextInput, Button } from 'react-native-paper'
 import { useState } from 'react'
 import { collection, initializeFirestore, addDoc } from 'firebase/firestore'
@@ -35,7 +35,7 @@ const NovaPesquisa = (props) => {
         setImg(result.assets[0])
       })
   }
-  
+
 
   const cadastrar = async () => {
     setCheckNome(false)

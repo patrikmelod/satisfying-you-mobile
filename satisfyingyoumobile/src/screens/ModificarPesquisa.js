@@ -66,7 +66,7 @@ const ModificarPesquisa = (props) => {
             getDownloadURL(imageRef)
               .then((url) => {
                 const pesqRef = doc(db, "pesquisas", idRed)
-
+                console.log(imageRef)
                 updateDoc(pesqRef, {
                   nome: '' + txtNome,
                   data: '' + data,
@@ -75,19 +75,21 @@ const ModificarPesquisa = (props) => {
               })
           )
       ).catch(() =>
-        uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
-          .then(() =>
-            getDownloadURL(imageRef)
-              .then((url) => {
-                const pesqRef = doc(db, "pesquisas", idRed)
-
-                updateDoc(pesqRef, {
-                  nome: '' + txtNome,
-                  data: '' + data,
-                  img: '' + url
+        deleteObject(imageRef).then(() =>
+          uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
+            .then(() =>
+              getDownloadURL(imageRef)
+                .then((url) => {
+                  const pesqRef = doc(db, "pesquisas", idRed)
+                  console.log("catch" + imageRef)
+                  updateDoc(pesqRef, {
+                    nome: '' + txtNome,
+                    data: '' + data,
+                    img: '' + url
+                  })
                 })
-              })
-          ))
+            ))
+      )
 
       props.navigation.goBack()
       props.navigation.goBack()
