@@ -6,6 +6,7 @@ import { app, storage } from '../firebase/config'
 import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import { uploadBytes, ref, getDownloadURL } from 'firebase/storage'
 import { useDispatch } from 'react-redux';
+import { reducerSetImage } from '../../redux/imageSlice'
 
 const NovaPesquisa = (props) => {
 
@@ -18,6 +19,7 @@ const NovaPesquisa = (props) => {
   const [imgUri, setImgUri] = useState('')
   const [checkNome, setCheckNome] = useState(false)
   const [checkData, setCheckData] = useState(false)
+  const [checkImg, setCheckImg] = useState(false)
 
   const db = initializeFirestore(app, { experimentalForceLongPolling: true })
   const pesquisaCollection = collection(db, "pesquisas")
@@ -27,8 +29,8 @@ const NovaPesquisa = (props) => {
       .then((result) => {
         setImgUri(result.assets[0].uri)
         setImg(result.assets[0])
-        dispatch(reducerSetPesquisa({
-          imgRef: img
+        dispatch(reducerSetImage({
+          image: result.assets[0]
         }))
       })
   }
@@ -38,18 +40,30 @@ const NovaPesquisa = (props) => {
       .then((result) => {
         setImgUri(result.assets[0].uri)
         setImg(result.assets[0])
-        dispatch(reducerSetPesquisa({
-          imgRef: img
+        dispatch(reducerSetImage({
+          image: result.assets[0]
         }))
       })
   }
 
   const cadastrar = async () => {
+    setCheckNome(false)
+    setCheckData(false)
+    setCheckImg(false)
+
     if (nome == "") {
       setCheckNome(true)
-    } else if (data == "") {
+    }
+
+    if (data == "") {
       setCheckData(true)
-    } else {
+    }
+
+    if (img == null) {
+      setCheckImg(true)
+    }
+
+    if (nome != "" && data != "" && img != null) {
       const imageRef = ref(storage, nome + '.jpeg')
       const file = await fetch(img.uri)
       const blob = await file.blob()
@@ -66,7 +80,8 @@ const NovaPesquisa = (props) => {
                 ruim: 0,
                 neutro: 0,
                 bom: 0,
-                excelente: 0
+                excelente: 0,
+                imgRef: img
               }
 
               addDoc(pesquisaCollection, docPesquisa)
@@ -74,7 +89,7 @@ const NovaPesquisa = (props) => {
                   setPesquisa([...pesquisa, { nome, data, img }]);
                   setNome('');
                   setData('');
-                  setImg('');
+                  setImg();
                   setCheckNome(false)
                   setCheckData(false)
                   props.navigation.goBack()
@@ -83,7 +98,6 @@ const NovaPesquisa = (props) => {
                 })
             })
         )
-
     }
   }
 
@@ -123,6 +137,7 @@ const NovaPesquisa = (props) => {
             <Button mode="contained" buttonColor='#1F0954' onPress={selecionarImg} style={estilos.botaoImg}>
               Selecionar imagem
             </Button>
+            {checkImg && <Text style={estilos.warning}>Escolha uma imagem</Text>}
           </View>
         </View>
         <View style={estilos.bottom}>
@@ -165,7 +180,7 @@ const estilos = StyleSheet.create({
     justifyContent: 'space-between'
   },
   middleImage: {
-    paddingTop: 70,
+    paddingTop: 80,
     flex: 1,
     gap: 10,
     flexDirection: 'column',

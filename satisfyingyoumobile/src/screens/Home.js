@@ -48,7 +48,8 @@ const Home = props => {
       ruim: clickedItem.ruim,
       neutro: clickedItem.neutro,
       bom: clickedItem.bom,
-      excelente: clickedItem.excelente
+      excelente: clickedItem.excelente,
+      imgRef: clickedItem.imgRef
     }))
     props.navigation.navigate("Ações Pesquisa")
   }
@@ -63,7 +64,7 @@ const Home = props => {
     )
   }
 
-  let numColumns = 100;
+  let numColumns = 200;
 
   return (
     <View style={estilos.view}>

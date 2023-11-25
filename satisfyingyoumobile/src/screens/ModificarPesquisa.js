@@ -1,6 +1,6 @@
 import { View, StyleSheet, Text, TouchableOpacity, Image, TextInput } from 'react-native'
 import { PaperProvider, Button } from 'react-native-paper'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import PopUp from '../components/PopUp'
 import { updateDoc, doc } from '@firebase/firestore'
@@ -17,11 +17,11 @@ const ModificarPesquisa = (props) => {
   const nomeRed = useSelector((state) => state.pesquisa.nome)
   const dataRed = useSelector((state) => state.pesquisa.data)
   const imgRed = useSelector((state) => state.pesquisa.img)
-  const imageRefRed = useSelector((state) => state.pesquisa.imgRef)
+  const imageRed = useSelector((state) => state.pesquisa.imgRef)
 
   const [txtNome, setNome] = useState(nomeRed)
   const [data, setData] = useState(dataRed)
-  const [img, setImg] = useState()
+  const [img, setImg] = useState(imageRed)
   const [imgUri, setImgUri] = useState(imgRed)
 
   const [checkNome, setCheckNome] = useState(false)
@@ -29,29 +29,6 @@ const ModificarPesquisa = (props) => {
   const [popupVisible, setPopupVisible] = useState(false);
 
   const db = initializeFirestore(app, { experimentalForceLongPolling: true })
-
-  useEffect(async () => {
-    const imageRefAnt = ref(storage, nomeRed + '.jpeg')
-    const imageRef = ref(storage, idRed + '.jpeg')
-    const file = await fetch(imageRefRed.uri)
-    const blob = await file.blob()
-
-    deleteObject(imageRefAnt).then(() =>
-      uploadBytes(imageRefRed, blob, { contentType: 'image/jpeg' })
-        .then(() =>
-          getDownloadURL(imageRef)
-            .then((url) => {
-              const pesqRef = doc(db, "pesquisas", idRed)
-
-              updateDoc(pesqRef, {
-                nome: '' + txtNome,
-                data: '' + data,
-                img: '' + url
-              })
-            })
-        )
-    ).catch(() => console.log("Nome já está renomeado com ID"))
-  }, [])
 
   const capturarImg = () => {
     launchCamera({ mediaType: 'photo', cameraType: 'back', quality: 1 })
@@ -78,35 +55,40 @@ const ModificarPesquisa = (props) => {
       setCheckNome(false)
       setCheckData(false)
 
-      if (img == null) {
-        const pesqRef = doc(db, "pesquisas", idRed)
+      const imageRefAnt = ref(storage, nomeRed + '.jpeg')
+      const imageRef = ref(storage, idRed + '.jpeg')
+      const file = await fetch(img.uri)
+      const blob = await file.blob()
 
-        updateDoc(pesqRef, {
-          nome: '' + txtNome,
-          data: '' + data,
-          img: '' + imgRed
-        })
-      } else {
-        const imageRef = ref(storage, idRed + '.jpeg')
-        const file = await fetch(img.uri)
-        const blob = await file.blob()
+      deleteObject(imageRefAnt).then(() =>
+        uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
+          .then(() =>
+            getDownloadURL(imageRef)
+              .then((url) => {
+                const pesqRef = doc(db, "pesquisas", idRed)
 
-        deleteObject(imageRef).then(() =>
-          uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
-            .then(() =>
-              getDownloadURL(imageRef)
-                .then((url) => {
-                  const pesqRef = doc(db, "pesquisas", idRed)
-
-                  updateDoc(pesqRef, {
-                    nome: '' + txtNome,
-                    data: '' + data,
-                    img: '' + url
-                  })
+                updateDoc(pesqRef, {
+                  nome: '' + txtNome,
+                  data: '' + data,
+                  img: '' + url
                 })
-            )
-        ).catch(() => console.log("Nome já está renomeado com ID"))
-      }
+              })
+          )
+      ).catch(() =>
+        uploadBytes(imageRef, blob, { contentType: 'image/jpeg' })
+          .then(() =>
+            getDownloadURL(imageRef)
+              .then((url) => {
+                const pesqRef = doc(db, "pesquisas", idRed)
+
+                updateDoc(pesqRef, {
+                  nome: '' + txtNome,
+                  data: '' + data,
+                  img: '' + url
+                })
+              })
+          ))
+
       props.navigation.goBack()
       props.navigation.goBack()
     }
