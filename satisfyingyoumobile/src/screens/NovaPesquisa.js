@@ -36,7 +36,6 @@ const NovaPesquisa = (props) => {
       })
   }
 
-
   const cadastrar = async () => {
     setCheckNome(false)
     setCheckData(false)
